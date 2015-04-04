@@ -21,8 +21,7 @@ namespace PlantManager
 
             //Ajouter les colonnes dans la liste.
             lstPlants.Columns.Add("ID", 0);
-            lstPlants.Columns.Add("Name", 100);
-            lstPlants.Columns.Add("Description", lstPlants.Width - 105);
+            lstPlants.Columns.Add("Name", -2);
 
             //Afficher les plantes dans la liste.
             ReloadListView();
@@ -43,12 +42,17 @@ namespace PlantManager
             pbImage.Image = null;
             txtDescription.Text = string.Empty;
             txtName.Text = string.Empty;
+            udHeight.Value = 0;
+            udWidth.Value = 0;
 
             txtName.Text = m_currentPlant.Name;
             txtCultivar.Text = m_currentPlant.Cultivar;
 
             txtDescription.Text = m_currentPlant.Description;
             cbGenus.SelectedValue = m_currentPlant.genus.ID;
+
+            udHeight.Value = m_currentPlant.Height;
+            udWidth.Value = m_currentPlant.Width;
           
             pbImage.Image = m_currentPlant.Img;
         }
@@ -125,19 +129,35 @@ namespace PlantManager
 
         private void btSaveChanges_Click(object sender, EventArgs e)
         {
-            if (m_currentPlant != null)
-            { 
-                if(txtName.Text.Length < 1)
-                {
-                    MessageBox.Show(Constants.DIALOG_NAME_CANNOT_BE_BLANK);
-                }
+            if (m_currentPlant == null)
+            {
+                return;
+            }
+            if(txtName.Text.Length < 1)
+            {
+                MessageBox.Show(Constants.DIALOG_NAME_CANNOT_BE_BLANK);
+            }
 
+            if (txtName.Text != m_currentPlant.Name || 
+                txtDescription.Text != m_currentPlant.Description)
+            {
                 Plant.UpdatePlantBase(m_currentPlant.ID, txtName.Text, txtDescription.Text);
+            }
+
+
+            if ((int)cbGenus.SelectedValue != m_currentPlant.genus.ID)
                 Plant.UpdatePlantGenus(m_currentPlant.ID, (int)cbGenus.SelectedValue);
+
+            if (txtCultivar.Text != m_currentPlant.Cultivar)
                 Plant.UpdatePlantCultivar(m_currentPlant.ID, txtCultivar.Text);
 
-                btSaveChanges.Enabled = false;
-            }
+            if (udHeight.Value != m_currentPlant.Height)
+                Plant.UpdatePlantHeight(m_currentPlant.ID, (int)udHeight.Value);
+
+            if (udWidth.Value != m_currentPlant.Width)
+                Plant.UpdatePlantWidth(m_currentPlant.ID, (int)udWidth.Value);
+
+            btSaveChanges.Enabled = false;
         }
 
         private void btAddImage_Click(object sender, EventArgs e)
@@ -162,29 +182,37 @@ namespace PlantManager
             if (m_currentPlant.genus.ID != -1)
                 searchString += m_currentPlant.genus.Name + " ";
 
-            searchString += m_currentPlant.Name;
+            searchString += m_currentPlant.Name + " " + m_currentPlant.Cultivar;
 
             System.Diagnostics.Process.Start("http://images.google.com/search?tbm=isch&q=" + searchString );
         }
 
         private void CheckChanges(object sender, EventArgs e)
         {
-            btSaveChanges.Enabled = false;
+            bool enableSave = false;
 
             if (m_currentPlant == null)
                 return;
 
             if (txtName.Text != m_currentPlant.Name)
-                btSaveChanges.Enabled = true;
+                enableSave = true;
 
             if (txtDescription.Text != m_currentPlant.Description)
-                btSaveChanges.Enabled = true;
+                enableSave = true;
 
             if ((int)cbGenus.SelectedValue != m_currentPlant.genus.ID)
-                btSaveChanges.Enabled = true;
+                enableSave = true;
 
             if (txtCultivar.Text != m_currentPlant.Cultivar)
-                btSaveChanges.Enabled = true;
+                enableSave = true;
+
+            if (udHeight.Value != m_currentPlant.Height)
+                enableSave = true;
+
+            if (udWidth.Value != m_currentPlant.Width)
+                enableSave = true;
+
+            btSaveChanges.Enabled = enableSave;
         }
 
         private void btSearch_Click(object sender, EventArgs e)
@@ -196,7 +224,7 @@ namespace PlantManager
 
             foreach (Plant plant in Plants)
             {
-                ListViewItem lvi = new ListViewItem( new [] {plant.ID.ToString(), plant.Name, plant.Description} );
+                ListViewItem lvi = new ListViewItem( new [] {plant.ID.ToString(), plant.Name} );
                 lstPlants.Items.Add(lvi);
             }
         }

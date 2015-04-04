@@ -90,6 +90,22 @@ namespace PlantManager
             }
         }
 
+        public int Width
+        {
+            get
+            {
+                return this.GetPlantWidth();
+            }
+        }
+
+        public int Height
+        {
+            get
+            {
+                return this.GetPlantHeight();
+            }
+        }
+
         public static Plant GetPlantByID(int _PlantID)
         {
             DataRow Plant = DB.QueryFirst("SELECT * FROM Plants WHERE PlantID = ?", _PlantID.ToString());
@@ -150,6 +166,16 @@ namespace PlantManager
             DB.Execute("UPDATE Plants SET PlantCultivar = ? WHERE PlantID = ?", _cultivar, _plantID.ToString());
         }
 
+        public static void UpdatePlantWidth(int _plantID, int _width)
+        {
+            DB.Execute("UPDATE Plants SET PlantWidth = ? WHERE PlantID = ?", _width.ToString(), _plantID.ToString());
+        }
+
+        public static void UpdatePlantHeight(int _plantID, int _height)
+        {
+            DB.Execute("UPDATE Plants SET PlantHeight = ? WHERE PlantID = ?", _height.ToString(), _plantID.ToString());
+        }
+
         private string GetPlantName()
         {
             DataRow Plant = DB.QueryFirst("SELECT PlantName FROM Plants WHERE PlantID = ?", m_ID.ToString());
@@ -160,6 +186,34 @@ namespace PlantManager
         {
             DataRow Plant = DB.QueryFirst("SELECT PlantCultivar FROM Plants WHERE PlantID = ?", m_ID.ToString());
             return Plant["PlantCultivar"].ToString();
+        }
+
+        private int GetPlantWidth()
+        {
+            DataRow Plant = DB.QueryFirst("SELECT PlantWidth FROM Plants WHERE PlantID = ?", m_ID.ToString());
+
+            string width = Plant["PlantWidth"].ToString();
+
+            if (width == string.Empty)
+            {
+                return 0;
+            }
+
+            return Convert.ToInt32(Plant["PlantWidth"]);
+        }
+
+        private int GetPlantHeight()
+        {
+            DataRow Plant = DB.QueryFirst("SELECT PlantHeight FROM Plants WHERE PlantID = ?", m_ID.ToString());
+
+            string height = Plant["PlantHeight"].ToString();
+
+            if (height == string.Empty)
+            {
+                return 0;
+            }
+
+            return Convert.ToInt32(height);
         }
     }
 }

@@ -54,8 +54,8 @@
             this.tsmiOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageGenus = new System.Windows.Forms.ToolStripMenuItem();
             this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.udHeight = new System.Windows.Forms.NumericUpDown();
+            this.udWidth = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -74,8 +74,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.tpDetail.SuspendLayout();
             this.msMainMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udWidth)).BeginInit();
             this.SuspendLayout();
             // 
             // lstPlants
@@ -275,8 +275,8 @@
             this.tpDetail.Controls.Add(this.label8);
             this.tpDetail.Controls.Add(this.label7);
             this.tpDetail.Controls.Add(this.label6);
-            this.tpDetail.Controls.Add(this.numericUpDown2);
-            this.tpDetail.Controls.Add(this.numericUpDown1);
+            this.tpDetail.Controls.Add(this.udWidth);
+            this.tpDetail.Controls.Add(this.udHeight);
             this.tpDetail.Controls.Add(this.label5);
             this.tpDetail.Location = new System.Drawing.Point(4, 22);
             this.tpDetail.Name = "tpDetail";
@@ -351,19 +351,21 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "Hauteur :";
             // 
-            // numericUpDown1
+            // udHeight
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(87, 19);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(62, 20);
-            this.numericUpDown1.TabIndex = 3;
+            this.udHeight.Location = new System.Drawing.Point(87, 19);
+            this.udHeight.Name = "udHeight";
+            this.udHeight.Size = new System.Drawing.Size(62, 20);
+            this.udHeight.TabIndex = 3;
+            this.udHeight.ValueChanged += new System.EventHandler(this.CheckChanges);
             // 
-            // numericUpDown2
+            // udWidth
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(87, 45);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(62, 20);
-            this.numericUpDown2.TabIndex = 4;
+            this.udWidth.Location = new System.Drawing.Point(87, 45);
+            this.udWidth.Name = "udWidth";
+            this.udWidth.Size = new System.Drawing.Size(62, 20);
+            this.udWidth.TabIndex = 4;
+            this.udWidth.ValueChanged += new System.EventHandler(this.CheckChanges);
             // 
             // label6
             // 
@@ -504,8 +506,8 @@
             this.tpDetail.PerformLayout();
             this.msMainMenu.ResumeLayout(false);
             this.msMainMenu.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udWidth)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -551,8 +553,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown udWidth;
+        private System.Windows.Forms.NumericUpDown udHeight;
         private System.Windows.Forms.Label label5;
     }
 }
