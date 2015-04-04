@@ -1,56 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PlantManager
 {
     public class Genus
     {
-        int m_ID;
-        string m_name;
-
         public Genus(int _ID, string _name)
         {
-            m_ID = _ID;
-            m_name = _name;
+            ID = _ID;
+            Name = _name;
         }
 
-        public int ID
-        {
-            get
-            {
-                return m_ID;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return m_name;
-            }
-        }
+        public int ID { get; private set; }
+        public string Name { get; private set; }
 
         public static Genus GetGenusByPlantID(int _genusID)
         {
-            DataRow item = DB.QueryFirst("SELECT * FROM Plants INNER JOIN Genus On PlantGenusID = GenusID WHERE PlantID = ?", _genusID.ToString());
+            var item = DB.QueryFirst(
+                "SELECT * FROM Plants INNER JOIN Genus On PlantGenusID = GenusID WHERE PlantID = ?", _genusID.ToString());
 
             if (item == null)
-                return Genus.GetDefaultGenus();
+                return GetDefaultGenus();
 
             return new Genus(Convert.ToInt32(item["GenusID"]), item["GenusName"].ToString());
-        
         }
 
         public static Genus[] GetAllGenus()
         {
-            DataTable dtGenus = DB.Query("SELECT * FROM Genus");
-            List<Genus> lstGenus = new List<Genus>();
+            var dtGenus = DB.Query("SELECT * FROM Genus");
+            var lstGenus = new List<Genus>();
 
-            lstGenus.Add(Genus.GetDefaultGenus());
+            lstGenus.Add(GetDefaultGenus());
 
             foreach (DataRow Row in dtGenus.Rows)
             {
@@ -61,7 +42,7 @@ namespace PlantManager
 
         public static void DeleteGenusByID(int _ID)
         {
-            if(_ID != -1)
+            if (_ID != -1)
                 DB.Execute("DELETE FROM Genus WHERE GenusID = ?", _ID.ToString());
         }
 
@@ -72,7 +53,7 @@ namespace PlantManager
 
         public override string ToString()
         {
-            return m_name;
+            return Name;
         }
 
         public static Genus GetDefaultGenus()

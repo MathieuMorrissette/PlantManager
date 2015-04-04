@@ -1,62 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PlantManager
 {
     public class ImagePlant
     {
-        int m_imageID;
-        int m_plantID;
-        string m_filePath;
-
         public ImagePlant(int _imageID, int _plantID, string _filePath)
         {
-            m_imageID = _imageID;
-            m_plantID = _plantID;
-            m_filePath = _filePath;
+            ImageID = _imageID;
+            PlantID = _plantID;
+            FilePath = _filePath;
         }
 
-        public int ImageID
-        {
-            get
-            { 
-                return this.m_imageID;
-            }
-        }
-
-        public int PlantID
-        {
-            get
-            {
-                return this.m_plantID;
-            }
-        }
-
-        public string FilePath
-        {
-            get
-            {
-                return this.m_filePath;
-            }
-        }
+        public int ImageID { get; private set; }
+        public int PlantID { get; private set; }
+        public string FilePath { get; private set; }
 
         public static ImagePlant GetImageByPlantID(int _ID)
         {
-            DataRow image = DB.QueryFirst("SELECT * FROM Images WHERE ImagePlantID = ?", _ID.ToString());
+            var image = DB.QueryFirst("SELECT * FROM Images WHERE ImagePlantID = ?", _ID.ToString());
 
             if (image == null)
                 return null;
 
-            return new ImagePlant(Convert.ToInt32(image["ImageID"]), Convert.ToInt32(image["ImagePlantID"]), image["ImageFilePath"].ToString());
+            return new ImagePlant(Convert.ToInt32(image["ImageID"]), Convert.ToInt32(image["ImagePlantID"]),
+                image["ImageFilePath"].ToString());
         }
 
-       /* public static string ImageBase64Encode(string _imagePath)
+        /* public static string ImageBase64Encode(string _imagePath)
         {
             Image image = Image.FromFile(_imagePath);
 

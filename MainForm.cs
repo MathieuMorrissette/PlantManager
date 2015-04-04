@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace PlantManager
 {
     public partial class MainForm : Form
     {
-        DB m_db;
-        Plant m_currentPlant;
+        private Plant m_currentPlant;
 
         public MainForm()
         {
@@ -27,7 +20,7 @@ namespace PlantManager
             ReloadListView();
 
             //Charger les informations dans le combobox des genres.
-            this.LoadGenusCombo();
+            LoadGenusCombo();
 
             //Desactiver le bouton pour sauvegarder les changements.
             btSaveChanges.Enabled = false;
@@ -35,7 +28,7 @@ namespace PlantManager
             //Cacher le TabControl.
             tcPlant.Enabled = false;
             tcPlant.Visible = false;
-          }
+        }
 
         public void RefreshPlant()
         {
@@ -53,36 +46,36 @@ namespace PlantManager
 
             udHeight.Value = m_currentPlant.Height;
             udWidth.Value = m_currentPlant.Width;
-          
+
             pbImage.Image = m_currentPlant.Img;
         }
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            AddPlantForm addPlantForm = new AddPlantForm(m_db);
+            var addPlantForm = new AddPlantForm();
             addPlantForm.ShowDialog();
             ReloadListView();
         }
 
         private void ReloadListView()
         {
-            Plant[] Plants = Plant.GetAllPlant();
+            var Plants = Plant.GetAllPlant();
 
             lstPlants.Items.Clear();
 
-            foreach (Plant plant in Plants)
+            foreach (var plant in Plants)
             {
-                string customizeName = string.Empty;
+                var customizeName = string.Empty;
                 if (plant.genus.ID != Genus.GetDefaultGenus().ID)
                     customizeName += plant.genus.Name + " ";
-                ListViewItem lvi = new ListViewItem( new [] {plant.ID.ToString(), customizeName + plant.Name , plant.Description} );
+                var lvi = new ListViewItem(new[] {plant.ID.ToString(), customizeName + plant.Name, plant.Description});
                 lstPlants.Items.Add(lvi);
             }
         }
 
         private void LoadGenusCombo()
         {
-            Genus[] genuses = Genus.GetAllGenus();
+            var genuses = Genus.GetAllGenus();
 
             cbGenus.DataSource = genuses;
             cbGenus.DisplayMember = "Name";
@@ -93,7 +86,7 @@ namespace PlantManager
         {
             if (lstPlants.SelectedItems.Count > 0)
             {
-                string PlantID = lstPlants.Items[lstPlants.SelectedIndices[0]].SubItems[0].Text;
+                var PlantID = lstPlants.Items[lstPlants.SelectedIndices[0]].SubItems[0].Text;
 
                 if (PlantID == m_currentPlant.ID.ToString())
                 {
@@ -111,14 +104,14 @@ namespace PlantManager
         {
             if (lstPlants.SelectedItems.Count > 0)
             {
-                string PlantID = lstPlants.Items[lstPlants.SelectedIndices[0]].SubItems[0].Text;
-                Plant maPlante = Plant.GetPlantByID(Convert.ToInt32(PlantID));
+                var PlantID = lstPlants.Items[lstPlants.SelectedIndices[0]].SubItems[0].Text;
+                var maPlante = Plant.GetPlantByID(Convert.ToInt32(PlantID));
 
                 //Afficher un message si les modifications n'ont pas ete enregistres.
                 m_currentPlant = maPlante;
                 tcPlant.Enabled = true;
                 tcPlant.Visible = true;
-                this.RefreshPlant();
+                RefreshPlant();
             }
             else
             {
@@ -133,36 +126,36 @@ namespace PlantManager
             {
                 return;
             }
-            if(txtName.Text.Length < 1)
+            if (txtName.Text.Length < 1)
             {
                 MessageBox.Show(Constants.DIALOG_NAME_CANNOT_BE_BLANK);
             }
 
-            if (txtName.Text != m_currentPlant.Name || 
+            if (txtName.Text != m_currentPlant.Name ||
                 txtDescription.Text != m_currentPlant.Description)
             {
                 Plant.UpdatePlantBase(m_currentPlant.ID, txtName.Text, txtDescription.Text);
             }
 
 
-            if ((int)cbGenus.SelectedValue != m_currentPlant.genus.ID)
-                Plant.UpdatePlantGenus(m_currentPlant.ID, (int)cbGenus.SelectedValue);
+            if ((int) cbGenus.SelectedValue != m_currentPlant.genus.ID)
+                Plant.UpdatePlantGenus(m_currentPlant.ID, (int) cbGenus.SelectedValue);
 
             if (txtCultivar.Text != m_currentPlant.Cultivar)
                 Plant.UpdatePlantCultivar(m_currentPlant.ID, txtCultivar.Text);
 
             if (udHeight.Value != m_currentPlant.Height)
-                Plant.UpdatePlantHeight(m_currentPlant.ID, (int)udHeight.Value);
+                Plant.UpdatePlantHeight(m_currentPlant.ID, (int) udHeight.Value);
 
             if (udWidth.Value != m_currentPlant.Width)
-                Plant.UpdatePlantWidth(m_currentPlant.ID, (int)udWidth.Value);
+                Plant.UpdatePlantWidth(m_currentPlant.ID, (int) udWidth.Value);
 
             btSaveChanges.Enabled = false;
         }
 
         private void btAddImage_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
+            var dlg = new OpenFileDialog();
             dlg.ShowDialog();
 
             if (m_currentPlant != null)
@@ -172,24 +165,23 @@ namespace PlantManager
 
                 pbImage.Image = m_currentPlant.Img;
             }
-
         }
 
         private void btSearchImage_Click(object sender, EventArgs e)
         {
-            string searchString = string.Empty;
+            var searchString = string.Empty;
 
             if (m_currentPlant.genus.ID != -1)
                 searchString += m_currentPlant.genus.Name + " ";
 
             searchString += m_currentPlant.Name + " " + m_currentPlant.Cultivar;
 
-            System.Diagnostics.Process.Start("http://images.google.com/search?tbm=isch&q=" + searchString );
+            Process.Start("http://images.google.com/search?tbm=isch&q=" + searchString);
         }
 
         private void CheckChanges(object sender, EventArgs e)
         {
-            bool enableSave = false;
+            var enableSave = false;
 
             if (m_currentPlant == null)
                 return;
@@ -200,7 +192,7 @@ namespace PlantManager
             if (txtDescription.Text != m_currentPlant.Description)
                 enableSave = true;
 
-            if ((int)cbGenus.SelectedValue != m_currentPlant.genus.ID)
+            if ((int) cbGenus.SelectedValue != m_currentPlant.genus.ID)
                 enableSave = true;
 
             if (txtCultivar.Text != m_currentPlant.Cultivar)
@@ -218,33 +210,31 @@ namespace PlantManager
         private void btSearch_Click(object sender, EventArgs e)
         {
             tcPlant.Visible = false;
-            Plant[] Plants = Plant.GetAllPlantByNameContains(txtSearchField.Text);
-            
+            var Plants = Plant.GetAllPlantByNameContains(txtSearchField.Text);
+
             lstPlants.Items.Clear();
 
-            foreach (Plant plant in Plants)
+            foreach (var plant in Plants)
             {
-                ListViewItem lvi = new ListViewItem( new [] {plant.ID.ToString(), plant.Name} );
+                var lvi = new ListViewItem(new[] {plant.ID.ToString(), plant.Name});
                 lstPlants.Items.Add(lvi);
             }
         }
 
         private void tsmiClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void tsmiManageGenus_Click(object sender, EventArgs e)
         {
-            ManageGenusForm manageGenusForm = new ManageGenusForm();
+            var manageGenusForm = new ManageGenusForm();
             manageGenusForm.ShowDialog();
 
-            this.LoadGenusCombo();
+            LoadGenusCombo();
 
-            if(m_currentPlant != null)
+            if (m_currentPlant != null)
                 cbGenus.SelectedValue = m_currentPlant.genus.ID;
         }
-
-
     }
 }
