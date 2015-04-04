@@ -29,7 +29,7 @@ namespace PlantManager
         {
             get
             {
-                var item = Genus.GetGenusByPlantID(ID);
+                Genus item = Genus.GetGenusByPlantID(ID);
                 return item;
             }
         }
@@ -45,7 +45,7 @@ namespace PlantManager
         {
             get
             {
-                var img = ImagePlant.GetImageByPlantID(ID);
+                ImagePlant img = ImagePlant.GetImageByPlantID(ID);
                 if (img != null)
                 {
                     if (File.Exists(img.FilePath))
@@ -78,15 +78,15 @@ namespace PlantManager
 
         public static Plant GetPlantByID(int _PlantID)
         {
-            var Plant = DB.QueryFirst("SELECT * FROM Plants WHERE PlantID = ?", _PlantID.ToString());
+            DataRow Plant = DB.QueryFirst("SELECT * FROM Plants WHERE PlantID = ?", _PlantID.ToString());
             return new Plant(Convert.ToInt32(Plant["PlantID"]), Plant["PlantName"].ToString(),
                 Plant["PlantDescription"].ToString());
         }
 
         public static Plant[] GetAllPlant()
         {
-            var dtPlants = DB.Query("SELECT * FROM Plants");
-            var lstPlants = new List<Plant>();
+            DataTable dtPlants = DB.Query("SELECT * FROM Plants");
+            List<Plant> lstPlants = new List<Plant>();
 
             foreach (DataRow Row in dtPlants.Rows)
             {
@@ -98,8 +98,8 @@ namespace PlantManager
 
         public static Plant[] GetAllPlantByNameContains(string _searchString)
         {
-            var dtPlants = DB.Query("SELECT * FROM Plants WHERE(PlantName LIKE ?)", "%" + _searchString + "%");
-            var lstPlants = new List<Plant>();
+            DataTable dtPlants = DB.Query("SELECT * FROM Plants WHERE(PlantName LIKE ?)", "%" + _searchString + "%");
+            List<Plant> lstPlants = new List<Plant>();
 
             foreach (DataRow Row in dtPlants.Rows)
             {
@@ -127,7 +127,7 @@ namespace PlantManager
 
         public static void UpdatePlantGenus(int _plantID, int _genusID)
         {
-            var genusID = _genusID.ToString();
+            string genusID = _genusID.ToString();
 
             if (_genusID == -1)
                 genusID = string.Empty;
@@ -152,21 +152,21 @@ namespace PlantManager
 
         private string GetPlantName()
         {
-            var Plant = DB.QueryFirst("SELECT PlantName FROM Plants WHERE PlantID = ?", ID.ToString());
+            DataRow Plant = DB.QueryFirst("SELECT PlantName FROM Plants WHERE PlantID = ?", ID.ToString());
             return Plant["PlantName"].ToString();
         }
 
         private string GetPlantCultivar()
         {
-            var Plant = DB.QueryFirst("SELECT PlantCultivar FROM Plants WHERE PlantID = ?", ID.ToString());
+            DataRow Plant = DB.QueryFirst("SELECT PlantCultivar FROM Plants WHERE PlantID = ?", ID.ToString());
             return Plant["PlantCultivar"].ToString();
         }
 
         private int GetPlantWidth()
         {
-            var Plant = DB.QueryFirst("SELECT PlantWidth FROM Plants WHERE PlantID = ?", ID.ToString());
+            DataRow Plant = DB.QueryFirst("SELECT PlantWidth FROM Plants WHERE PlantID = ?", ID.ToString());
 
-            var width = Plant["PlantWidth"].ToString();
+            string width = Plant["PlantWidth"].ToString();
 
             if (width == string.Empty)
             {
@@ -178,9 +178,9 @@ namespace PlantManager
 
         private int GetPlantHeight()
         {
-            var Plant = DB.QueryFirst("SELECT PlantHeight FROM Plants WHERE PlantID = ?", ID.ToString());
+            DataRow Plant = DB.QueryFirst("SELECT PlantHeight FROM Plants WHERE PlantID = ?", ID.ToString());
 
-            var height = Plant["PlantHeight"].ToString();
+            string height = Plant["PlantHeight"].ToString();
 
             if (height == string.Empty)
             {

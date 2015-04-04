@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 
 namespace PlantManager
 {
@@ -17,7 +18,7 @@ namespace PlantManager
 
         public static ImagePlant GetImageByPlantID(int _ID)
         {
-            var image = DB.QueryFirst("SELECT * FROM Images WHERE ImagePlantID = ?", _ID.ToString());
+            DataRow image = DB.QueryFirst("SELECT * FROM Images WHERE ImagePlantID = ?", _ID.ToString());
 
             if (image == null)
                 return null;

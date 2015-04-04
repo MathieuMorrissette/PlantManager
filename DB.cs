@@ -22,18 +22,18 @@ namespace PlantManager
         public static DataTable Query(string _request, params string[] _parameters)
         {
             EnsureConnected();
-            var command = new SQLiteCommand(m_dbConnection);
+            SQLiteCommand command = new SQLiteCommand(m_dbConnection);
             command.CommandText = _request;
 
-            for (var i = 0; i < _parameters.Length; i++)
+            for (int i = 0; i < _parameters.Length; i++)
             {
                 command.Parameters.Add(new SQLiteParameter("", _parameters[i]));
             }
 
             m_dbConnection.Open();
-            var reader = command.ExecuteReader();
+            SQLiteDataReader reader = command.ExecuteReader();
 
-            var dTable = new DataTable();
+            DataTable dTable = new DataTable();
             dTable.Load(reader);
             m_dbConnection.Close();
             return dTable;
@@ -42,17 +42,17 @@ namespace PlantManager
         public static DataRow QueryFirst(string _request, params string[] _parameters)
         {
             EnsureConnected();
-            var command = new SQLiteCommand(m_dbConnection);
+            SQLiteCommand command = new SQLiteCommand(m_dbConnection);
             command.CommandText = _request;
 
-            for (var i = 0; i < _parameters.Length; i++)
+            for (int i = 0; i < _parameters.Length; i++)
             {
                 command.Parameters.Add(new SQLiteParameter("", _parameters[i]));
             }
 
             m_dbConnection.Open();
-            var reader = command.ExecuteReader(CommandBehavior.SingleRow);
-            var dTable = new DataTable();
+            SQLiteDataReader reader = command.ExecuteReader(CommandBehavior.SingleRow);
+            DataTable dTable = new DataTable();
             dTable.Load(reader);
             m_dbConnection.Close();
 
@@ -70,10 +70,10 @@ namespace PlantManager
         public static void Execute(string _request, params string[] _parameters)
         {
             EnsureConnected();
-            var command = new SQLiteCommand(m_dbConnection);
+            SQLiteCommand command = new SQLiteCommand(m_dbConnection);
             command.CommandText = _request;
 
-            for (var i = 0; i < _parameters.Length; i++)
+            for (int i = 0; i < _parameters.Length; i++)
             {
                 command.Parameters.Add(new SQLiteParameter("", _parameters[i]));
             }

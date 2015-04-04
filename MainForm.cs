@@ -52,30 +52,31 @@ namespace PlantManager
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            var addPlantForm = new AddPlantForm();
+            AddPlantForm addPlantForm = new AddPlantForm();
             addPlantForm.ShowDialog();
             ReloadListView();
         }
 
         private void ReloadListView()
         {
-            var Plants = Plant.GetAllPlant();
+            Plant[] Plants = Plant.GetAllPlant();
 
             lstPlants.Items.Clear();
 
-            foreach (var plant in Plants)
+            foreach (Plant plant in Plants)
             {
-                var customizeName = string.Empty;
+                string customizeName = string.Empty;
                 if (plant.genus.ID != Genus.GetDefaultGenus().ID)
                     customizeName += plant.genus.Name + " ";
-                var lvi = new ListViewItem(new[] {plant.ID.ToString(), customizeName + plant.Name, plant.Description});
+                ListViewItem lvi =
+                    new ListViewItem(new[] {plant.ID.ToString(), customizeName + plant.Name, plant.Description});
                 lstPlants.Items.Add(lvi);
             }
         }
 
         private void LoadGenusCombo()
         {
-            var genuses = Genus.GetAllGenus();
+            Genus[] genuses = Genus.GetAllGenus();
 
             cbGenus.DataSource = genuses;
             cbGenus.DisplayMember = "Name";
@@ -86,7 +87,7 @@ namespace PlantManager
         {
             if (lstPlants.SelectedItems.Count > 0)
             {
-                var PlantID = lstPlants.Items[lstPlants.SelectedIndices[0]].SubItems[0].Text;
+                string PlantID = lstPlants.Items[lstPlants.SelectedIndices[0]].SubItems[0].Text;
 
                 if (PlantID == m_currentPlant.ID.ToString())
                 {
@@ -104,8 +105,8 @@ namespace PlantManager
         {
             if (lstPlants.SelectedItems.Count > 0)
             {
-                var PlantID = lstPlants.Items[lstPlants.SelectedIndices[0]].SubItems[0].Text;
-                var maPlante = Plant.GetPlantByID(Convert.ToInt32(PlantID));
+                string PlantID = lstPlants.Items[lstPlants.SelectedIndices[0]].SubItems[0].Text;
+                Plant maPlante = Plant.GetPlantByID(Convert.ToInt32(PlantID));
 
                 //Afficher un message si les modifications n'ont pas ete enregistres.
                 m_currentPlant = maPlante;
@@ -155,7 +156,7 @@ namespace PlantManager
 
         private void btAddImage_Click(object sender, EventArgs e)
         {
-            var dlg = new OpenFileDialog();
+            OpenFileDialog dlg = new OpenFileDialog();
             dlg.ShowDialog();
 
             if (m_currentPlant != null)
@@ -169,7 +170,7 @@ namespace PlantManager
 
         private void btSearchImage_Click(object sender, EventArgs e)
         {
-            var searchString = string.Empty;
+            string searchString = string.Empty;
 
             if (m_currentPlant.genus.ID != -1)
                 searchString += m_currentPlant.genus.Name + " ";
@@ -181,7 +182,7 @@ namespace PlantManager
 
         private void CheckChanges(object sender, EventArgs e)
         {
-            var enableSave = false;
+            bool enableSave = false;
 
             if (m_currentPlant == null)
                 return;
@@ -210,13 +211,13 @@ namespace PlantManager
         private void btSearch_Click(object sender, EventArgs e)
         {
             tcPlant.Visible = false;
-            var Plants = Plant.GetAllPlantByNameContains(txtSearchField.Text);
+            Plant[] Plants = Plant.GetAllPlantByNameContains(txtSearchField.Text);
 
             lstPlants.Items.Clear();
 
-            foreach (var plant in Plants)
+            foreach (Plant plant in Plants)
             {
-                var lvi = new ListViewItem(new[] {plant.ID.ToString(), plant.Name});
+                ListViewItem lvi = new ListViewItem(new[] {plant.ID.ToString(), plant.Name});
                 lstPlants.Items.Add(lvi);
             }
         }
@@ -228,7 +229,7 @@ namespace PlantManager
 
         private void tsmiManageGenus_Click(object sender, EventArgs e)
         {
-            var manageGenusForm = new ManageGenusForm();
+            ManageGenusForm manageGenusForm = new ManageGenusForm();
             manageGenusForm.ShowDialog();
 
             LoadGenusCombo();

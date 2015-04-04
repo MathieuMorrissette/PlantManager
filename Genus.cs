@@ -17,7 +17,7 @@ namespace PlantManager
 
         public static Genus GetGenusByPlantID(int _genusID)
         {
-            var item = DB.QueryFirst(
+            DataRow item = DB.QueryFirst(
                 "SELECT * FROM Plants INNER JOIN Genus On PlantGenusID = GenusID WHERE PlantID = ?", _genusID.ToString());
 
             if (item == null)
@@ -28,8 +28,8 @@ namespace PlantManager
 
         public static Genus[] GetAllGenus()
         {
-            var dtGenus = DB.Query("SELECT * FROM Genus");
-            var lstGenus = new List<Genus>();
+            DataTable dtGenus = DB.Query("SELECT * FROM Genus");
+            List<Genus> lstGenus = new List<Genus>();
 
             lstGenus.Add(GetDefaultGenus());
 
