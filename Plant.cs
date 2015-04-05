@@ -75,6 +75,11 @@ namespace PlantManager
             get { return GetPlantHeight(); }
         }
 
+        public HardinessZone HardZone
+        {
+            get { return HardinessZone.GetHardinessZoneByPlantId(Id); }
+        }
+
         private string GetPlantDescription()
         {
             DataRow plant = Db.QueryFirst("SELECT PlantDescription FROM Plants WHERE PlantID = ?", Id.ToString());

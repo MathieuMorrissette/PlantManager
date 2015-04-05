@@ -50,6 +50,7 @@
             this.txtGenusName.Name = "txtGenusName";
             this.txtGenusName.Size = new System.Drawing.Size(151, 20);
             this.txtGenusName.TabIndex = 2;
+            this.txtGenusName.TextChanged += new System.EventHandler(this.txtGenusName_TextChanged);
             // 
             // btAdd
             // 

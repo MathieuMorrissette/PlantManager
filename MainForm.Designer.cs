@@ -46,6 +46,22 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tpDetail = new System.Windows.Forms.TabPage();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cbHardinessZones = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.udWidth = new System.Windows.Forms.NumericUpDown();
+            this.udHeight = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
             this.btSearch = new System.Windows.Forms.Button();
             this.txtSearchField = new System.Windows.Forms.TextBox();
             this.msMainMenu = new System.Windows.Forms.MenuStrip();
@@ -53,29 +69,14 @@
             this.tsmiClose = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageGenus = new System.Windows.Forms.ToolStripMenuItem();
-            this.label5 = new System.Windows.Forms.Label();
-            this.udHeight = new System.Windows.Forms.NumericUpDown();
-            this.udWidth = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.tsmiManageHardinessZones = new System.Windows.Forms.ToolStripMenuItem();
             this.tcPlant.SuspendLayout();
             this.tpGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.tpDetail.SuspendLayout();
-            this.msMainMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.udHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udHeight)).BeginInit();
+            this.msMainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstPlants
@@ -271,7 +272,7 @@
             this.tpDetail.Controls.Add(this.comboBox2);
             this.tpDetail.Controls.Add(this.label10);
             this.tpDetail.Controls.Add(this.label9);
-            this.tpDetail.Controls.Add(this.comboBox1);
+            this.tpDetail.Controls.Add(this.cbHardinessZones);
             this.tpDetail.Controls.Add(this.label8);
             this.tpDetail.Controls.Add(this.label7);
             this.tpDetail.Controls.Add(this.label6);
@@ -285,6 +286,145 @@
             this.tpDetail.TabIndex = 1;
             this.tpDetail.Text = "Détails";
             this.tpDetail.UseVisualStyleBackColor = true;
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Location = new System.Drawing.Point(28, 262);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(121, 21);
+            this.comboBox5.TabIndex = 17;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(20, 246);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(68, 13);
+            this.label13.TabIndex = 16;
+            this.label13.Text = "Type de sol :";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(20, 201);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(84, 13);
+            this.label12.TabIndex = 15;
+            this.label12.Text = "Type de plante :";
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Location = new System.Drawing.Point(28, 217);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(121, 21);
+            this.comboBox4.TabIndex = 14;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Location = new System.Drawing.Point(28, 177);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(121, 21);
+            this.comboBox3.TabIndex = 13;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(20, 161);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(42, 13);
+            this.label11.TabIndex = 12;
+            this.label11.Text = "Forme :";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(28, 137);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 21);
+            this.comboBox2.TabIndex = 11;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(20, 119);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(124, 13);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "Niveau d\'ensoleillement :";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(20, 79);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(92, 13);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Zone de rusticité :";
+            // 
+            // cbHardinessZones
+            // 
+            this.cbHardinessZones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbHardinessZones.FormattingEnabled = true;
+            this.cbHardinessZones.Location = new System.Drawing.Point(28, 95);
+            this.cbHardinessZones.Name = "cbHardinessZones";
+            this.cbHardinessZones.Size = new System.Drawing.Size(121, 21);
+            this.cbHardinessZones.TabIndex = 8;
+            this.cbHardinessZones.SelectedIndexChanged += new System.EventHandler(this.CheckChanges);
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(155, 19);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(30, 20);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "cm";
+            // 
+            // label7
+            // 
+            this.label7.Location = new System.Drawing.Point(155, 45);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(30, 20);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "cm";
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(20, 47);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(61, 20);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Largeur :";
+            // 
+            // udWidth
+            // 
+            this.udWidth.Location = new System.Drawing.Point(87, 45);
+            this.udWidth.Name = "udWidth";
+            this.udWidth.Size = new System.Drawing.Size(62, 20);
+            this.udWidth.TabIndex = 4;
+            this.udWidth.ValueChanged += new System.EventHandler(this.CheckChanges);
+            // 
+            // udHeight
+            // 
+            this.udHeight.Location = new System.Drawing.Point(87, 19);
+            this.udHeight.Name = "udHeight";
+            this.udHeight.Size = new System.Drawing.Size(62, 20);
+            this.udHeight.TabIndex = 3;
+            this.udHeight.ValueChanged += new System.EventHandler(this.CheckChanges);
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(20, 21);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(61, 20);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Hauteur :";
             // 
             // btSearch
             // 
@@ -331,7 +471,8 @@
             // tsmiOptions
             // 
             this.tsmiOptions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiManageGenus});
+            this.tsmiManageGenus,
+            this.tsmiManageHardinessZones});
             this.tsmiOptions.Name = "tsmiOptions";
             this.tsmiOptions.Size = new System.Drawing.Size(61, 20);
             this.tsmiOptions.Text = "Options";
@@ -339,147 +480,16 @@
             // tsmiManageGenus
             // 
             this.tsmiManageGenus.Name = "tsmiManageGenus";
-            this.tsmiManageGenus.Size = new System.Drawing.Size(110, 22);
+            this.tsmiManageGenus.Size = new System.Drawing.Size(167, 22);
             this.tsmiManageGenus.Text = "Genres";
             this.tsmiManageGenus.Click += new System.EventHandler(this.tsmiManageGenus_Click);
             // 
-            // label5
+            // tsmiManageHardinessZones
             // 
-            this.label5.Location = new System.Drawing.Point(20, 21);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(61, 20);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Hauteur :";
-            // 
-            // udHeight
-            // 
-            this.udHeight.Location = new System.Drawing.Point(87, 19);
-            this.udHeight.Name = "udHeight";
-            this.udHeight.Size = new System.Drawing.Size(62, 20);
-            this.udHeight.TabIndex = 3;
-            this.udHeight.ValueChanged += new System.EventHandler(this.CheckChanges);
-            // 
-            // udWidth
-            // 
-            this.udWidth.Location = new System.Drawing.Point(87, 45);
-            this.udWidth.Name = "udWidth";
-            this.udWidth.Size = new System.Drawing.Size(62, 20);
-            this.udWidth.TabIndex = 4;
-            this.udWidth.ValueChanged += new System.EventHandler(this.CheckChanges);
-            // 
-            // label6
-            // 
-            this.label6.Location = new System.Drawing.Point(20, 47);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 20);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Largeur :";
-            // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(155, 45);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(30, 20);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "cm";
-            // 
-            // label8
-            // 
-            this.label8.Location = new System.Drawing.Point(155, 19);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(30, 20);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "cm";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(28, 95);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 8;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(20, 79);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(92, 13);
-            this.label9.TabIndex = 9;
-            this.label9.Text = "Zone de rusticité :";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(20, 119);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(124, 13);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "Niveau d\'ensoleillement :";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(28, 137);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 11;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(20, 161);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(42, 13);
-            this.label11.TabIndex = 12;
-            this.label11.Text = "Forme :";
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(28, 177);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
-            this.comboBox3.TabIndex = 13;
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(28, 217);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(121, 21);
-            this.comboBox4.TabIndex = 14;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(20, 201);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(84, 13);
-            this.label12.TabIndex = 15;
-            this.label12.Text = "Type de plante :";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(20, 246);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(68, 13);
-            this.label13.TabIndex = 16;
-            this.label13.Text = "Type de sol :";
-            // 
-            // comboBox5
-            // 
-            this.comboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(28, 262);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(121, 21);
-            this.comboBox5.TabIndex = 17;
+            this.tsmiManageHardinessZones.Name = "tsmiManageHardinessZones";
+            this.tsmiManageHardinessZones.Size = new System.Drawing.Size(167, 22);
+            this.tsmiManageHardinessZones.Text = "Zones de rusticité";
+            this.tsmiManageHardinessZones.Click += new System.EventHandler(this.tsmiManageHardinessZones_Click);
             // 
             // MainForm
             // 
@@ -504,10 +514,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.tpDetail.ResumeLayout(false);
             this.tpDetail.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.udWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udHeight)).EndInit();
             this.msMainMenu.ResumeLayout(false);
             this.msMainMenu.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.udHeight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.udWidth)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -549,13 +559,14 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbHardinessZones;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown udWidth;
         private System.Windows.Forms.NumericUpDown udHeight;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolStripMenuItem tsmiManageHardinessZones;
     }
 }
 

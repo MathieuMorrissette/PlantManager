@@ -61,5 +61,10 @@ namespace PlantManager
                 btDelete.Enabled = Convert.ToInt32(genusId) != -1;
             }
         }
+
+        private void txtGenusName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

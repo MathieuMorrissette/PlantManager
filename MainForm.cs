@@ -22,6 +22,8 @@ namespace PlantManager
             //Charger les informations dans le combobox des genres.
             LoadGenusCombo();
 
+            LoadHardinessZonesCombo();
+
             //Desactiver le bouton pour sauvegarder les changements.
             btSaveChanges.Enabled = false;
 
@@ -43,6 +45,8 @@ namespace PlantManager
 
             txtDescription.Text = _mCurrentPlant.Description;
             cbGenus.SelectedValue = _mCurrentPlant.Genus.Id;
+
+            cbHardinessZones.SelectedValue = _mCurrentPlant.HardZone.Id;
 
             udHeight.Value = _mCurrentPlant.Height;
             udWidth.Value = _mCurrentPlant.Width;
@@ -81,6 +85,15 @@ namespace PlantManager
             cbGenus.DataSource = genuses;
             cbGenus.DisplayMember = "Name";
             cbGenus.ValueMember = "ID";
+        }
+
+        private void LoadHardinessZonesCombo()
+        {
+            HardinessZone[] hardinessZones = HardinessZone.GetAllHardinessZones();
+
+            cbHardinessZones.DataSource = hardinessZones;
+            cbHardinessZones.DisplayMember = "Name";
+            cbHardinessZones.ValueMember = "ID";
         }
 
         private void btDelete_Click(object sender, EventArgs e)
@@ -205,6 +218,9 @@ namespace PlantManager
             if (udWidth.Value != _mCurrentPlant.Width)
                 enableSave = true;
 
+            if ((int) cbHardinessZones.SelectedValue != _mCurrentPlant.HardZone.Id)
+                enableSave = true;
+
             btSaveChanges.Enabled = enableSave;
         }
 
@@ -236,6 +252,17 @@ namespace PlantManager
 
             if (_mCurrentPlant != null)
                 cbGenus.SelectedValue = _mCurrentPlant.Genus.Id;
+        }
+
+        private void tsmiManageHardinessZones_Click(object sender, EventArgs e)
+        {
+            ManageHardinessZonesForm manageHardinessZonesForm = new ManageHardinessZonesForm();
+            manageHardinessZonesForm.ShowDialog();
+
+            LoadHardinessZonesCombo();
+
+            if (_mCurrentPlant != null)
+                cbHardinessZones.SelectedValue = _mCurrentPlant.HardZone.Id;
         }
     }
 }
