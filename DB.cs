@@ -3,58 +3,59 @@ using System.Data.SQLite;
 
 namespace PlantManager
 {
-    public class DB
+    public class Db
     {
-        private const string CONNECTION_STRING = "Data Source=plantmanager.sqlite;Version=3;foreign keys=true;";
-        private static SQLiteConnection m_dbConnection;
+        private const string ConnectionString = "Data Source=plantmanager.sqlite;Version=3;foreign keys=true;";
+        private static SQLiteConnection _dbConnection;
 
         public static void EnsureConnected()
         {
-            if (m_dbConnection == null)
+            if (_dbConnection == null)
                 Connect();
         }
 
         private static void Connect()
         {
-            m_dbConnection = new SQLiteConnection(CONNECTION_STRING);
+            _dbConnection = new SQLiteConnection(ConnectionString);
         }
 
-        public static DataTable Query(string _request, params string[] _parameters)
+        public static DataTable Query(string request, params string[] parameters)
         {
             EnsureConnected();
-            SQLiteCommand command = new SQLiteCommand(m_dbConnection);
-            command.CommandText = _request;
 
-            for (int i = 0; i < _parameters.Length; i++)
+            SQLiteCommand command = new SQLiteCommand(_dbConnection);
+            command.CommandText = request;
+
+            foreach (string parameter in parameters)
             {
-                command.Parameters.Add(new SQLiteParameter("", _parameters[i]));
+                command.Parameters.Add(new SQLiteParameter("", parameter));
             }
 
-            m_dbConnection.Open();
+            _dbConnection.Open();
             SQLiteDataReader reader = command.ExecuteReader();
 
             DataTable dTable = new DataTable();
             dTable.Load(reader);
-            m_dbConnection.Close();
+            _dbConnection.Close();
             return dTable;
         }
 
-        public static DataRow QueryFirst(string _request, params string[] _parameters)
+        public static DataRow QueryFirst(string request, params string[] parameters)
         {
             EnsureConnected();
-            SQLiteCommand command = new SQLiteCommand(m_dbConnection);
-            command.CommandText = _request;
+            SQLiteCommand command = new SQLiteCommand(_dbConnection);
+            command.CommandText = request;
 
-            for (int i = 0; i < _parameters.Length; i++)
+            foreach (string parameter in parameters)
             {
-                command.Parameters.Add(new SQLiteParameter("", _parameters[i]));
+                command.Parameters.Add(new SQLiteParameter("", parameter));
             }
 
-            m_dbConnection.Open();
+            _dbConnection.Open();
             SQLiteDataReader reader = command.ExecuteReader(CommandBehavior.SingleRow);
             DataTable dTable = new DataTable();
             dTable.Load(reader);
-            m_dbConnection.Close();
+            _dbConnection.Close();
 
             if (dTable.Rows.Count == 0)
                 return null;
@@ -67,22 +68,22 @@ namespace PlantManager
             SQLiteConnection.CreateFile("plantmanager.sqlite");
         }*/
 
-        public static void Execute(string _request, params string[] _parameters)
+        public static void Execute(string request, params string[] parameters)
         {
             EnsureConnected();
-            SQLiteCommand command = new SQLiteCommand(m_dbConnection);
-            command.CommandText = _request;
+            SQLiteCommand command = new SQLiteCommand(_dbConnection);
+            command.CommandText = request;
 
-            for (int i = 0; i < _parameters.Length; i++)
+            foreach (string parameter in parameters)
             {
-                command.Parameters.Add(new SQLiteParameter("", _parameters[i]));
+                command.Parameters.Add(new SQLiteParameter("", parameter));
             }
 
-            m_dbConnection.Open();
+            _dbConnection.Open();
 
             command.ExecuteNonQuery();
 
-            m_dbConnection.Close();
+            _dbConnection.Close();
         }
     }
 }

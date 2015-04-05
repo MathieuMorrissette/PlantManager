@@ -6,7 +6,7 @@ namespace PlantManager
 {
     public partial class MainForm : Form
     {
-        private Plant m_currentPlant;
+        private Plant _mCurrentPlant;
 
         public MainForm()
         {
@@ -38,16 +38,16 @@ namespace PlantManager
             udHeight.Value = 0;
             udWidth.Value = 0;
 
-            txtName.Text = m_currentPlant.Name;
-            txtCultivar.Text = m_currentPlant.Cultivar;
+            txtName.Text = _mCurrentPlant.Name;
+            txtCultivar.Text = _mCurrentPlant.Cultivar;
 
-            txtDescription.Text = m_currentPlant.Description;
-            cbGenus.SelectedValue = m_currentPlant.genus.ID;
+            txtDescription.Text = _mCurrentPlant.Description;
+            cbGenus.SelectedValue = _mCurrentPlant.Genus.Id;
 
-            udHeight.Value = m_currentPlant.Height;
-            udWidth.Value = m_currentPlant.Width;
+            udHeight.Value = _mCurrentPlant.Height;
+            udWidth.Value = _mCurrentPlant.Width;
 
-            pbImage.Image = m_currentPlant.Img;
+            pbImage.Image = _mCurrentPlant.Img;
         }
 
         private void btAdd_Click(object sender, EventArgs e)
@@ -59,17 +59,17 @@ namespace PlantManager
 
         private void ReloadListView()
         {
-            Plant[] Plants = Plant.GetAllPlant();
+            Plant[] plants = Plant.GetAllPlant();
 
             lstPlants.Items.Clear();
 
-            foreach (Plant plant in Plants)
+            foreach (Plant plant in plants)
             {
                 string customizeName = string.Empty;
-                if (plant.genus.ID != Genus.GetDefaultGenus().ID)
-                    customizeName += plant.genus.Name + " ";
+                if (plant.Genus.Id != Genus.GetDefaultGenus().Id)
+                    customizeName += plant.Genus.Name + " ";
                 ListViewItem lvi =
-                    new ListViewItem(new[] {plant.ID.ToString(), customizeName + plant.Name, plant.Description});
+                    new ListViewItem(new[] {plant.Id.ToString(), customizeName + plant.Name, plant.Description});
                 lstPlants.Items.Add(lvi);
             }
         }
@@ -87,16 +87,16 @@ namespace PlantManager
         {
             if (lstPlants.SelectedItems.Count > 0)
             {
-                string PlantID = lstPlants.Items[lstPlants.SelectedIndices[0]].SubItems[0].Text;
+                string plantId = lstPlants.Items[lstPlants.SelectedIndices[0]].SubItems[0].Text;
 
-                if (PlantID == m_currentPlant.ID.ToString())
+                if (plantId == _mCurrentPlant.Id.ToString())
                 {
-                    m_currentPlant = null;
+                    _mCurrentPlant = null;
                     tcPlant.Visible = false;
                     tcPlant.Enabled = false;
                 }
 
-                Plant.DeletePlantByID(Convert.ToInt32(PlantID));
+                Plant.DeletePlantById(Convert.ToInt32(plantId));
                 ReloadListView();
             }
         }
@@ -105,11 +105,11 @@ namespace PlantManager
         {
             if (lstPlants.SelectedItems.Count > 0)
             {
-                string PlantID = lstPlants.Items[lstPlants.SelectedIndices[0]].SubItems[0].Text;
-                Plant maPlante = Plant.GetPlantByID(Convert.ToInt32(PlantID));
+                string plantId = lstPlants.Items[lstPlants.SelectedIndices[0]].SubItems[0].Text;
+                Plant maPlante = Plant.GetPlantById(Convert.ToInt32(plantId));
 
                 //Afficher un message si les modifications n'ont pas ete enregistres.
-                m_currentPlant = maPlante;
+                _mCurrentPlant = maPlante;
                 tcPlant.Enabled = true;
                 tcPlant.Visible = true;
                 RefreshPlant();
@@ -123,33 +123,33 @@ namespace PlantManager
 
         private void btSaveChanges_Click(object sender, EventArgs e)
         {
-            if (m_currentPlant == null)
+            if (_mCurrentPlant == null)
             {
                 return;
             }
             if (txtName.Text.Length < 1)
             {
-                MessageBox.Show(Constants.DIALOG_NAME_CANNOT_BE_BLANK);
+                MessageBox.Show(Constants.DialogNameCannotBeBlank);
             }
 
-            if (txtName.Text != m_currentPlant.Name ||
-                txtDescription.Text != m_currentPlant.Description)
+            if (txtName.Text != _mCurrentPlant.Name ||
+                txtDescription.Text != _mCurrentPlant.Description)
             {
-                Plant.UpdatePlantBase(m_currentPlant.ID, txtName.Text, txtDescription.Text);
+                Plant.UpdatePlantBase(_mCurrentPlant.Id, txtName.Text, txtDescription.Text);
             }
 
 
-            if ((int) cbGenus.SelectedValue != m_currentPlant.genus.ID)
-                Plant.UpdatePlantGenus(m_currentPlant.ID, (int) cbGenus.SelectedValue);
+            if ((int) cbGenus.SelectedValue != _mCurrentPlant.Genus.Id)
+                Plant.UpdatePlantGenus(_mCurrentPlant.Id, (int) cbGenus.SelectedValue);
 
-            if (txtCultivar.Text != m_currentPlant.Cultivar)
-                Plant.UpdatePlantCultivar(m_currentPlant.ID, txtCultivar.Text);
+            if (txtCultivar.Text != _mCurrentPlant.Cultivar)
+                Plant.UpdatePlantCultivar(_mCurrentPlant.Id, txtCultivar.Text);
 
-            if (udHeight.Value != m_currentPlant.Height)
-                Plant.UpdatePlantHeight(m_currentPlant.ID, (int) udHeight.Value);
+            if (udHeight.Value != _mCurrentPlant.Height)
+                Plant.UpdatePlantHeight(_mCurrentPlant.Id, (int) udHeight.Value);
 
-            if (udWidth.Value != m_currentPlant.Width)
-                Plant.UpdatePlantWidth(m_currentPlant.ID, (int) udWidth.Value);
+            if (udWidth.Value != _mCurrentPlant.Width)
+                Plant.UpdatePlantWidth(_mCurrentPlant.Id, (int) udWidth.Value);
 
             btSaveChanges.Enabled = false;
         }
@@ -159,12 +159,12 @@ namespace PlantManager
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.ShowDialog();
 
-            if (m_currentPlant != null)
+            if (_mCurrentPlant != null)
             {
-                ImagePlant.DeleteImageByPlantID(m_currentPlant.ID);
-                ImagePlant.AddImage(m_currentPlant.ID, dlg.FileName);
+                ImagePlant.DeleteImageByPlantId(_mCurrentPlant.Id);
+                ImagePlant.AddImage(_mCurrentPlant.Id, dlg.FileName);
 
-                pbImage.Image = m_currentPlant.Img;
+                pbImage.Image = _mCurrentPlant.Img;
             }
         }
 
@@ -172,10 +172,10 @@ namespace PlantManager
         {
             string searchString = string.Empty;
 
-            if (m_currentPlant.genus.ID != -1)
-                searchString += m_currentPlant.genus.Name + " ";
+            if (_mCurrentPlant.Genus.Id != -1)
+                searchString += _mCurrentPlant.Genus.Name + " ";
 
-            searchString += m_currentPlant.Name + " " + m_currentPlant.Cultivar;
+            searchString += _mCurrentPlant.Name + " " + _mCurrentPlant.Cultivar;
 
             Process.Start("http://images.google.com/search?tbm=isch&q=" + searchString);
         }
@@ -184,25 +184,25 @@ namespace PlantManager
         {
             bool enableSave = false;
 
-            if (m_currentPlant == null)
+            if (_mCurrentPlant == null)
                 return;
 
-            if (txtName.Text != m_currentPlant.Name)
+            if (txtName.Text != _mCurrentPlant.Name)
                 enableSave = true;
 
-            if (txtDescription.Text != m_currentPlant.Description)
+            if (txtDescription.Text != _mCurrentPlant.Description)
                 enableSave = true;
 
-            if ((int) cbGenus.SelectedValue != m_currentPlant.genus.ID)
+            if ((int) cbGenus.SelectedValue != _mCurrentPlant.Genus.Id)
                 enableSave = true;
 
-            if (txtCultivar.Text != m_currentPlant.Cultivar)
+            if (txtCultivar.Text != _mCurrentPlant.Cultivar)
                 enableSave = true;
 
-            if (udHeight.Value != m_currentPlant.Height)
+            if (udHeight.Value != _mCurrentPlant.Height)
                 enableSave = true;
 
-            if (udWidth.Value != m_currentPlant.Width)
+            if (udWidth.Value != _mCurrentPlant.Width)
                 enableSave = true;
 
             btSaveChanges.Enabled = enableSave;
@@ -211,13 +211,13 @@ namespace PlantManager
         private void btSearch_Click(object sender, EventArgs e)
         {
             tcPlant.Visible = false;
-            Plant[] Plants = Plant.GetAllPlantByNameContains(txtSearchField.Text);
+            Plant[] plants = Plant.GetAllPlantByNameContains(txtSearchField.Text);
 
             lstPlants.Items.Clear();
 
-            foreach (Plant plant in Plants)
+            foreach (Plant plant in plants)
             {
-                ListViewItem lvi = new ListViewItem(new[] {plant.ID.ToString(), plant.Name});
+                ListViewItem lvi = new ListViewItem(new[] {plant.Id.ToString(), plant.Name});
                 lstPlants.Items.Add(lvi);
             }
         }
@@ -234,8 +234,8 @@ namespace PlantManager
 
             LoadGenusCombo();
 
-            if (m_currentPlant != null)
-                cbGenus.SelectedValue = m_currentPlant.genus.ID;
+            if (_mCurrentPlant != null)
+                cbGenus.SelectedValue = _mCurrentPlant.Genus.Id;
         }
     }
 }

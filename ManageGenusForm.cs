@@ -23,7 +23,7 @@ namespace PlantManager
 
             foreach (Genus item in genus)
             {
-                ListViewItem lvi = new ListViewItem(new[] {item.ID.ToString(), item.Name});
+                ListViewItem lvi = new ListViewItem(new[] {item.Id.ToString(), item.Name});
                 lstGenus.Items.Add(lvi);
             }
         }
@@ -42,9 +42,9 @@ namespace PlantManager
         {
             if (lstGenus.SelectedItems.Count > 0)
             {
-                string GenusID = lstGenus.Items[lstGenus.SelectedIndices[0]].SubItems[0].Text;
+                string genusId = lstGenus.Items[lstGenus.SelectedIndices[0]].SubItems[0].Text;
 
-                Genus.DeleteGenusByID(Convert.ToInt32(GenusID));
+                Genus.DeleteGenusById(Convert.ToInt32(genusId));
 
                 RefreshList();
             }
@@ -56,9 +56,9 @@ namespace PlantManager
 
             if (lstGenus.SelectedItems.Count > 0)
             {
-                string GenusID = lstGenus.Items[lstGenus.SelectedIndices[0]].SubItems[0].Text;
+                string genusId = lstGenus.Items[lstGenus.SelectedIndices[0]].SubItems[0].Text;
 
-                btDelete.Enabled = Convert.ToInt32(GenusID) != -1;
+                btDelete.Enabled = Convert.ToInt32(genusId) != -1;
             }
         }
     }

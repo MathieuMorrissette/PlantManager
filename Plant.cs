@@ -1,40 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using PlantManager.Properties;
 
 namespace PlantManager
 {
     public class Plant
     {
-        private string m_name;
-
-        public Plant(int _ID, string _name, string _description)
+        public Plant(int id)
         {
-            ID = _ID;
-            m_name = _name;
-            Description = _description;
+            Id = id;
         }
 
-        public int ID { get; private set; }
+        public int Id { get; private set; }
 
         public string Name
         {
             get { return GetPlantName(); }
         }
 
-        public Genus genus
+        public Genus Genus
         {
             get
             {
-                Genus item = Genus.GetGenusByPlantID(ID);
+                Genus item = Genus.GetGenusByPlantId(Id);
                 return item;
             }
         }
 
-        public string Description { get; private set; }
+        public string Description
+        {
+            get { return GetPlantDescription(); }
+        }
 
         public string Cultivar
         {
@@ -45,7 +45,7 @@ namespace PlantManager
         {
             get
             {
-                ImagePlant img = ImagePlant.GetImageByPlantID(ID);
+                ImagePlant img = ImagePlant.GetImageByPlantId(Id);
                 if (img != null)
                 {
                     if (File.Exists(img.FilePath))
@@ -56,13 +56,12 @@ namespace PlantManager
                         }
                         catch (Exception ex)
                         {
-                            //
-                            MessageBox.Show("L'image n'est pas valide : " + ex.Message);
+                            MessageBox.Show(Resources.MSG_IMG_NOT_VALID + ex.Message);
                         }
                     }
                 }
 
-                return Image.FromFile(Constants.IMG_PATH_NOT_FOUND);
+                return Image.FromFile(Constants.ImgPathNotFound);
             }
         }
 
@@ -76,118 +75,103 @@ namespace PlantManager
             get { return GetPlantHeight(); }
         }
 
-        public static Plant GetPlantByID(int _PlantID)
+        private string GetPlantDescription()
         {
-            DataRow Plant = DB.QueryFirst("SELECT * FROM Plants WHERE PlantID = ?", _PlantID.ToString());
-            return new Plant(Convert.ToInt32(Plant["PlantID"]), Plant["PlantName"].ToString(),
-                Plant["PlantDescription"].ToString());
+            DataRow plant = Db.QueryFirst("SELECT PlantDescription FROM Plants WHERE PlantID = ?", Id.ToString());
+            return plant["PlantDescription"].ToString();
+        }
+
+        public static Plant GetPlantById(int plantId)
+        {
+            DataRow plant = Db.QueryFirst("SELECT * FROM Plants WHERE PlantID = ?", plantId.ToString());
+            return new Plant(Convert.ToInt32(plant["PlantID"]));
         }
 
         public static Plant[] GetAllPlant()
         {
-            DataTable dtPlants = DB.Query("SELECT * FROM Plants");
-            List<Plant> lstPlants = new List<Plant>();
+            DataTable dtPlants = Db.Query("SELECT * FROM Plants");
 
-            foreach (DataRow Row in dtPlants.Rows)
+            return (from DataRow row in dtPlants.Rows select new Plant(Convert.ToInt32(row["PlantID"]))).ToArray();
+        }
+
+        public static Plant[] GetAllPlantByNameContains(string searchString)
+        {
+            DataTable dtPlants = Db.Query("SELECT * FROM Plants WHERE(PlantName LIKE ?)", "%" + searchString + "%");
+
+            return (from DataRow row in dtPlants.Rows select new Plant(Convert.ToInt32(row["PlantID"]))).ToArray();
+        }
+
+        public static void DeletePlantById(int id)
+        {
+            Db.Execute("DELETE FROM Plants WHERE PlantID = ?", id.ToString());
+        }
+
+        public static void AddPlant(string name, string description)
+        {
+            Db.Execute("INSERT INTO Plants (PlantName, PlantDescription) VALUES (?, ?)", name, description);
+        }
+
+        public static void UpdatePlantBase(int id, string name, string description)
+        {
+            Db.Execute("UPDATE Plants SET PlantName = ?, PlantDescription = ? WHERE PlantID = ?", name, description,
+                id.ToString());
+        }
+
+        public static void UpdatePlantGenus(int plantId, int genusId)
+        {
+            string dataGenusId = genusId.ToString();
+
+            if (genusId == -1)
             {
-                lstPlants.Add(new Plant(Convert.ToInt32(Row["PlantID"]), Row["PlantName"].ToString(),
-                    Row["PlantDescription"].ToString()));
+                dataGenusId = string.Empty;
             }
-            return lstPlants.ToArray();
+
+            Db.Execute("UPDATE Plants SET PlantGenusID = ? WHERE PlantID = ?", dataGenusId, plantId.ToString());
         }
 
-        public static Plant[] GetAllPlantByNameContains(string _searchString)
+        public static void UpdatePlantCultivar(int plantId, string cultivar)
         {
-            DataTable dtPlants = DB.Query("SELECT * FROM Plants WHERE(PlantName LIKE ?)", "%" + _searchString + "%");
-            List<Plant> lstPlants = new List<Plant>();
-
-            foreach (DataRow Row in dtPlants.Rows)
-            {
-                lstPlants.Add(new Plant(Convert.ToInt32(Row["PlantID"]), Row["PlantName"].ToString(),
-                    Row["PlantDescription"].ToString()));
-            }
-            return lstPlants.ToArray();
+            Db.Execute("UPDATE Plants SET PlantCultivar = ? WHERE PlantID = ?", cultivar, plantId.ToString());
         }
 
-        public static void DeletePlantByID(int _ID)
+        public static void UpdatePlantWidth(int plantId, int width)
         {
-            DB.Execute("DELETE FROM Plants WHERE PlantID = ?", _ID.ToString());
+            Db.Execute("UPDATE Plants SET PlantWidth = ? WHERE PlantID = ?", width.ToString(), plantId.ToString());
         }
 
-        public static void AddPlant(string _name, string _description)
+        public static void UpdatePlantHeight(int plantId, int height)
         {
-            DB.Execute("INSERT INTO Plants (PlantName, PlantDescription) VALUES (?, ?)", _name, _description);
-        }
-
-        public static void UpdatePlantBase(int _ID, string _name, string _description)
-        {
-            DB.Execute("UPDATE Plants SET PlantName = ?, PlantDescription = ? WHERE PlantID = ?", _name, _description,
-                _ID.ToString());
-        }
-
-        public static void UpdatePlantGenus(int _plantID, int _genusID)
-        {
-            string genusID = _genusID.ToString();
-
-            if (_genusID == -1)
-                genusID = string.Empty;
-
-            DB.Execute("UPDATE Plants SET PlantGenusID = ? WHERE PlantID = ?", genusID, _plantID.ToString());
-        }
-
-        public static void UpdatePlantCultivar(int _plantID, string _cultivar)
-        {
-            DB.Execute("UPDATE Plants SET PlantCultivar = ? WHERE PlantID = ?", _cultivar, _plantID.ToString());
-        }
-
-        public static void UpdatePlantWidth(int _plantID, int _width)
-        {
-            DB.Execute("UPDATE Plants SET PlantWidth = ? WHERE PlantID = ?", _width.ToString(), _plantID.ToString());
-        }
-
-        public static void UpdatePlantHeight(int _plantID, int _height)
-        {
-            DB.Execute("UPDATE Plants SET PlantHeight = ? WHERE PlantID = ?", _height.ToString(), _plantID.ToString());
+            Db.Execute("UPDATE Plants SET PlantHeight = ? WHERE PlantID = ?", height.ToString(), plantId.ToString());
         }
 
         private string GetPlantName()
         {
-            DataRow Plant = DB.QueryFirst("SELECT PlantName FROM Plants WHERE PlantID = ?", ID.ToString());
-            return Plant["PlantName"].ToString();
+            DataRow plant = Db.QueryFirst("SELECT PlantName FROM Plants WHERE PlantID = ?", Id.ToString());
+            return plant["PlantName"].ToString();
         }
 
         private string GetPlantCultivar()
         {
-            DataRow Plant = DB.QueryFirst("SELECT PlantCultivar FROM Plants WHERE PlantID = ?", ID.ToString());
-            return Plant["PlantCultivar"].ToString();
+            DataRow plant = Db.QueryFirst("SELECT PlantCultivar FROM Plants WHERE PlantID = ?", Id.ToString());
+            return plant["PlantCultivar"].ToString();
         }
 
         private int GetPlantWidth()
         {
-            DataRow Plant = DB.QueryFirst("SELECT PlantWidth FROM Plants WHERE PlantID = ?", ID.ToString());
+            DataRow plant = Db.QueryFirst("SELECT PlantWidth FROM Plants WHERE PlantID = ?", Id.ToString());
 
-            string width = Plant["PlantWidth"].ToString();
+            string width = plant["PlantWidth"].ToString();
 
-            if (width == string.Empty)
-            {
-                return 0;
-            }
-
-            return Convert.ToInt32(Plant["PlantWidth"]);
+            return width == string.Empty ? 0 : Convert.ToInt32(plant["PlantWidth"]);
         }
 
         private int GetPlantHeight()
         {
-            DataRow Plant = DB.QueryFirst("SELECT PlantHeight FROM Plants WHERE PlantID = ?", ID.ToString());
+            DataRow plant = Db.QueryFirst("SELECT PlantHeight FROM Plants WHERE PlantID = ?", Id.ToString());
 
-            string height = Plant["PlantHeight"].ToString();
+            string height = plant["PlantHeight"].ToString();
 
-            if (height == string.Empty)
-            {
-                return 0;
-            }
-
-            return Convert.ToInt32(height);
+            return height == string.Empty ? 0 : Convert.ToInt32(height);
         }
     }
 }

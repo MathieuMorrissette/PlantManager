@@ -5,20 +5,20 @@ namespace PlantManager
 {
     public class ImagePlant
     {
-        public ImagePlant(int _imageID, int _plantID, string _filePath)
+        public ImagePlant(int imageId, int plantId, string filePath)
         {
-            ImageID = _imageID;
-            PlantID = _plantID;
-            FilePath = _filePath;
+            ImageId = imageId;
+            PlantId = plantId;
+            FilePath = filePath;
         }
 
-        public int ImageID { get; private set; }
-        public int PlantID { get; private set; }
+        public int ImageId { get; private set; }
+        public int PlantId { get; private set; }
         public string FilePath { get; private set; }
 
-        public static ImagePlant GetImageByPlantID(int _ID)
+        public static ImagePlant GetImageByPlantId(int id)
         {
-            DataRow image = DB.QueryFirst("SELECT * FROM Images WHERE ImagePlantID = ?", _ID.ToString());
+            DataRow image = Db.QueryFirst("SELECT * FROM Images WHERE ImagePlantID = ?", id.ToString());
 
             if (image == null)
                 return null;
@@ -54,14 +54,14 @@ namespace PlantManager
             return image;
         }*/
 
-        public static void AddImage(int _plantID, string _imagePath)
+        public static void AddImage(int plantId, string imagePath)
         {
-            DB.Execute("INSERT INTO Images (ImagePlantID, ImageFilePath) VALUES (?,?)", _plantID.ToString(), _imagePath);
+            Db.Execute("INSERT INTO Images (ImagePlantID, ImageFilePath) VALUES (?,?)", plantId.ToString(), imagePath);
         }
 
-        public static void DeleteImageByPlantID(int _plantID)
+        public static void DeleteImageByPlantId(int plantId)
         {
-            DB.Execute("DELETE FROM Images WHERE ImagePlantID = ?", _plantID.ToString());
+            Db.Execute("DELETE FROM Images WHERE ImagePlantID = ?", plantId.ToString());
         }
     }
 }

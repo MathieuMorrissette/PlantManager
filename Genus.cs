@@ -6,19 +6,19 @@ namespace PlantManager
 {
     public class Genus
     {
-        public Genus(int _ID, string _name)
+        public Genus(int id, string name)
         {
-            ID = _ID;
-            Name = _name;
+            Id = id;
+            Name = name;
         }
 
-        public int ID { get; private set; }
+        public int Id { get; private set; }
         public string Name { get; private set; }
 
-        public static Genus GetGenusByPlantID(int _genusID)
+        public static Genus GetGenusByPlantId(int genusId)
         {
-            DataRow item = DB.QueryFirst(
-                "SELECT * FROM Plants INNER JOIN Genus On PlantGenusID = GenusID WHERE PlantID = ?", _genusID.ToString());
+            DataRow item = Db.QueryFirst(
+                "SELECT * FROM Plants INNER JOIN Genus On PlantGenusID = GenusID WHERE PlantID = ?", genusId.ToString());
 
             if (item == null)
                 return GetDefaultGenus();
@@ -28,27 +28,27 @@ namespace PlantManager
 
         public static Genus[] GetAllGenus()
         {
-            DataTable dtGenus = DB.Query("SELECT * FROM Genus");
+            DataTable dtGenus = Db.Query("SELECT * FROM Genus");
             List<Genus> lstGenus = new List<Genus>();
 
             lstGenus.Add(GetDefaultGenus());
 
-            foreach (DataRow Row in dtGenus.Rows)
+            foreach (DataRow row in dtGenus.Rows)
             {
-                lstGenus.Add(new Genus(Convert.ToInt32(Row["GenusID"]), Row["GenusName"].ToString()));
+                lstGenus.Add(new Genus(Convert.ToInt32(row["GenusID"]), row["GenusName"].ToString()));
             }
             return lstGenus.ToArray();
         }
 
-        public static void DeleteGenusByID(int _ID)
+        public static void DeleteGenusById(int id)
         {
-            if (_ID != -1)
-                DB.Execute("DELETE FROM Genus WHERE GenusID = ?", _ID.ToString());
+            if (id != -1)
+                Db.Execute("DELETE FROM Genus WHERE GenusID = ?", id.ToString());
         }
 
-        public static void AddGenus(string _name)
+        public static void AddGenus(string name)
         {
-            DB.Execute("INSERT INTO Genus (GenusName) VALUES (?)", _name);
+            Db.Execute("INSERT INTO Genus (GenusName) VALUES (?)", name);
         }
 
         public override string ToString()
@@ -58,7 +58,7 @@ namespace PlantManager
 
         public static Genus GetDefaultGenus()
         {
-            return new Genus(-1, Constants.STR_NONE);
+            return new Genus(-1, Constants.StrNone);
         }
     }
 }
