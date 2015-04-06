@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -34,27 +35,40 @@ namespace PlantManager
             tcPlant.Visible = false;
         }
 
+        public async Task RefreshPlantAsync()
+        {
+            await Task.Run(() => RefreshPlant());
+        }
+
         public void RefreshPlant()
         {
-            pbImage.Image = null;
-            txtDescription.Text = string.Empty;
-            txtName.Text = string.Empty;
-            udHeight.Value = 0;
-            udWidth.Value = 0;
+            Invoke(new MethodInvoker(delegate() { pbLoading.Visible = true; }));
 
-            txtName.Text = _mCurrentPlant.Name;
-            txtCultivar.Text = _mCurrentPlant.Cultivar;
+            Thread.Sleep(10);
 
-            txtDescription.Text = _mCurrentPlant.Description;
-            cbGenus.SelectedValue = _mCurrentPlant.Genus.Id;
+            Invoke(new MethodInvoker(delegate()
+            {
+                pbImage.Image = null;
+                txtDescription.Text = string.Empty;
+                txtName.Text = string.Empty;
+                udHeight.Value = 0;
+                udWidth.Value = 0;
 
-            cbHardinessZones.SelectedValue = _mCurrentPlant.HardZone.Id;
-            cbSunLevels.SelectedValue = _mCurrentPlant.SunLvl.Id;
+                txtName.Text = _mCurrentPlant.Name;
+                txtCultivar.Text = _mCurrentPlant.Cultivar;
 
-            udHeight.Value = _mCurrentPlant.Height;
-            udWidth.Value = _mCurrentPlant.Width;
+                txtDescription.Text = _mCurrentPlant.Description;
+                cbGenus.SelectedValue = _mCurrentPlant.Genus.Id;
 
-            pbImage.Image = _mCurrentPlant.Img;
+                cbHardinessZones.SelectedValue = _mCurrentPlant.HardZone.Id;
+                cbSunLevels.SelectedValue = _mCurrentPlant.SunLvl.Id;
+
+                udHeight.Value = _mCurrentPlant.Height;
+                udWidth.Value = _mCurrentPlant.Width;
+
+                pbImage.Image = _mCurrentPlant.Img;
+            }));
+            Invoke(new MethodInvoker(delegate() { pbLoading.Visible = false; }));
         }
 
         private void btAdd_Click(object sender, EventArgs e)
@@ -128,10 +142,8 @@ namespace PlantManager
             }
         }
 
-        private void lstPlants_SelectedIndexChanged(object sender, EventArgs e)
+        private async void lstPlants_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Application.DoEvents();
-
             if (lstPlants.SelectedItems.Count > 0)
             {
                 string plantId = lstPlants.Items[lstPlants.SelectedIndices[0]].SubItems[0].Text;
@@ -139,18 +151,19 @@ namespace PlantManager
 
                 //Afficher un message si les modifications n'ont pas ete enregistres.
                 _mCurrentPlant = maPlante;
-                
-                RefreshPlant();
+
+                await RefreshPlantAsync();
 
                 if (tcPlant.Visible) return;
-                    tcPlant.Visible = true;
+                tcPlant.Visible = true;
             }
             else
             {
-               if (tcPlant.Visible == false) return;
-                    tcPlant.Visible = false;
+                if (tcPlant.Visible == false) return;
+                tcPlant.Visible = false;
             }
         }
+
 
         private void btSaveChanges_Click(object sender, EventArgs e)
         {
@@ -182,7 +195,7 @@ namespace PlantManager
             if (udWidth.Value != _mCurrentPlant.Width)
                 Plant.UpdatePlantWidth(_mCurrentPlant.Id, (int) udWidth.Value);
 
-            if((int)cbHardinessZones.SelectedValue != _mCurrentPlant.HardZone.Id)
+            if ((int) cbHardinessZones.SelectedValue != _mCurrentPlant.HardZone.Id)
                 Plant.UpdatePlantHardinessZone(_mCurrentPlant.Id, (int) cbHardinessZones.SelectedValue);
 
             if ((int) cbSunLevels.SelectedValue != _mCurrentPlant.SunLvl.Id)
@@ -196,13 +209,12 @@ namespace PlantManager
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.ShowDialog();
 
-            if (_mCurrentPlant != null)
-            {
-                ImagePlant.DeleteImageByPlantId(_mCurrentPlant.Id);
-                ImagePlant.AddImage(_mCurrentPlant.Id, dlg.FileName);
+            if (_mCurrentPlant == null) return;
 
-                pbImage.Image = _mCurrentPlant.Img;
-            }
+            ImagePlant.DeleteImageByPlantId(_mCurrentPlant.Id);
+            ImagePlant.AddImage(_mCurrentPlant.Id, dlg.FileName);
+
+            pbImage.Image = _mCurrentPlant.Img;
         }
 
         private void btSearchImage_Click(object sender, EventArgs e)
@@ -305,7 +317,5 @@ namespace PlantManager
             if (_mCurrentPlant != null)
                 cbSunLevels.SelectedValue = _mCurrentPlant.SunLvl.Id;
         }
-
-
     }
 }

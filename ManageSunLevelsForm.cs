@@ -26,7 +26,7 @@ namespace PlantManager
         private void btAdd_Click(object sender, EventArgs e)
         {
             if (txtSunLevelName.Text != string.Empty)
-               SunLevel.AddSunLevel(txtSunLevelName.Text);
+                SunLevel.AddSunLevel(txtSunLevelName.Text);
 
             txtSunLevelName.Text = string.Empty;
 
@@ -39,7 +39,8 @@ namespace PlantManager
 
             SunLevel[] sunLevels = SunLevel.GetAllSunLevels();
 
-            foreach (ListViewItem lvi in sunLevels.Select(item => new ListViewItem(new[] { item.Id.ToString(), item.Name })))
+            foreach (
+                ListViewItem lvi in sunLevels.Select(item => new ListViewItem(new[] {item.Id.ToString(), item.Name})))
             {
                 lstSunLevels.Items.Add(lvi);
             }

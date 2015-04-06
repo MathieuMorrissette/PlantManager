@@ -21,7 +21,9 @@ namespace PlantManager
             DataRow item = Db.QueryFirst(
                 "SELECT * FROM Plants INNER JOIN Genus On PlantGenusID = GenusID WHERE PlantID = ?", genusId.ToString());
 
-            return item == null ? GetDefaultGenus() : new Genus(Convert.ToInt32(item["GenusID"]), item["GenusName"].ToString());
+            return item == null
+                ? GetDefaultGenus()
+                : new Genus(Convert.ToInt32(item["GenusID"]), item["GenusName"].ToString());
         }
 
         public static Genus[] GetAllGenus()
@@ -31,7 +33,8 @@ namespace PlantManager
 
             lstGenus.Add(GetDefaultGenus());
 
-            lstGenus.AddRange(from DataRow row in dtGenus.Rows select new Genus(Convert.ToInt32(row["GenusID"]), row["GenusName"].ToString()));
+            lstGenus.AddRange(from DataRow row in dtGenus.Rows
+                select new Genus(Convert.ToInt32(row["GenusID"]), row["GenusName"].ToString()));
             return lstGenus.ToArray();
         }
 

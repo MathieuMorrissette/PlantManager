@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.lstPlants = new System.Windows.Forms.ListView();
             this.btDelete = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
@@ -71,6 +72,7 @@
             this.tsmiManageGenus = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageHardinessZones = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageSunLevels = new System.Windows.Forms.ToolStripMenuItem();
+            this.pbLoading = new System.Windows.Forms.PictureBox();
             this.tcPlant.SuspendLayout();
             this.tpGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
@@ -78,6 +80,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.udWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udHeight)).BeginInit();
             this.msMainMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // lstPlants
@@ -137,7 +140,7 @@
             this.tcPlant.Location = new System.Drawing.Point(265, 27);
             this.tcPlant.Name = "tcPlant";
             this.tcPlant.SelectedIndex = 0;
-            this.tcPlant.Size = new System.Drawing.Size(577, 408);
+            this.tcPlant.Size = new System.Drawing.Size(577, 401);
             this.tcPlant.TabIndex = 10;
             // 
             // tpGeneral
@@ -156,7 +159,7 @@
             this.tpGeneral.Location = new System.Drawing.Point(4, 22);
             this.tpGeneral.Name = "tpGeneral";
             this.tpGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tpGeneral.Size = new System.Drawing.Size(569, 382);
+            this.tpGeneral.Size = new System.Drawing.Size(569, 375);
             this.tpGeneral.TabIndex = 0;
             this.tpGeneral.Text = "Général";
             this.tpGeneral.UseVisualStyleBackColor = true;
@@ -283,7 +286,7 @@
             this.tpDetail.Location = new System.Drawing.Point(4, 22);
             this.tpDetail.Name = "tpDetail";
             this.tpDetail.Padding = new System.Windows.Forms.Padding(3);
-            this.tpDetail.Size = new System.Drawing.Size(569, 382);
+            this.tpDetail.Size = new System.Drawing.Size(569, 375);
             this.tpDetail.TabIndex = 1;
             this.tpDetail.Text = "Détails";
             this.tpDetail.UseVisualStyleBackColor = true;
@@ -501,11 +504,23 @@
             this.tsmiManageSunLevels.Text = "Niveau d\'ensoleillement";
             this.tsmiManageSunLevels.Click += new System.EventHandler(this.tsmiManageSunLevels_Click);
             // 
+            // pbLoading
+            // 
+            this.pbLoading.Image = ((System.Drawing.Image)(resources.GetObject("pbLoading.Image")));
+            this.pbLoading.Location = new System.Drawing.Point(269, 434);
+            this.pbLoading.Name = "pbLoading";
+            this.pbLoading.Size = new System.Drawing.Size(32, 32);
+            this.pbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbLoading.TabIndex = 14;
+            this.pbLoading.TabStop = false;
+            this.pbLoading.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(852, 471);
+            this.Controls.Add(this.pbLoading);
             this.Controls.Add(this.txtSearchField);
             this.Controls.Add(this.btSearch);
             this.Controls.Add(this.tcPlant);
@@ -528,6 +543,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.udHeight)).EndInit();
             this.msMainMenu.ResumeLayout(false);
             this.msMainMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLoading)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -578,6 +594,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolStripMenuItem tsmiManageHardinessZones;
         private System.Windows.Forms.ToolStripMenuItem tsmiManageSunLevels;
+        private System.Windows.Forms.PictureBox pbLoading;
     }
 }
 

@@ -39,7 +39,9 @@ namespace PlantManager
 
             HardinessZone[] hardinessZones = HardinessZone.GetAllHardinessZones();
 
-            foreach (ListViewItem lvi in hardinessZones.Select(item => new ListViewItem(new[] { item.Id.ToString(), item.Name })))
+            foreach (
+                ListViewItem lvi in
+                    hardinessZones.Select(item => new ListViewItem(new[] {item.Id.ToString(), item.Name})))
             {
                 lstHardinessZones.Items.Add(lvi);
             }
