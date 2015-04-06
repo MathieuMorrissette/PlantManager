@@ -80,6 +80,11 @@ namespace PlantManager
             get { return HardinessZone.GetHardinessZoneByPlantId(Id); }
         }
 
+        public SunLevel SunLvl
+        {
+            get { return SunLevel.GetSunLevelByPlantId(Id); }
+        }
+
         private string GetPlantDescription()
         {
             DataRow plant = Db.QueryFirst("SELECT PlantDescription FROM Plants WHERE PlantID = ?", Id.ToString());
@@ -132,6 +137,30 @@ namespace PlantManager
             }
 
             Db.Execute("UPDATE Plants SET PlantGenusID = ? WHERE PlantID = ?", dataGenusId, plantId.ToString());
+        }
+
+        public static void UpdatePlantHardinessZone(int plantId, int hardinessZoneId)
+        {
+            string dataZoneId = hardinessZoneId.ToString();
+
+            if (hardinessZoneId == -1)
+            {
+                dataZoneId = string.Empty;
+            }
+
+            Db.Execute("UPDATE Plants SET PlantHardinessZoneID = ? WHERE PlantID = ?", dataZoneId, plantId.ToString());
+        }
+
+        public static void UpdatePlantSunLevel(int plantId, int sunLevelId)
+        {
+            string dataSunLevelId = sunLevelId.ToString();
+
+            if (sunLevelId == -1)
+            {
+                dataSunLevelId = string.Empty;
+            }
+
+            Db.Execute("UPDATE Plants SET PlantSunLevelID = ? WHERE PlantID = ?", dataSunLevelId, plantId.ToString());
         }
 
         public static void UpdatePlantCultivar(int plantId, string cultivar)

@@ -15,6 +15,7 @@ namespace PlantManager
         public ManageHardinessZonesForm()
         {
             InitializeComponent();
+            btDelete.Enabled = false;
 
             lstHardinessZones.Columns.Add("ID", 0);
             lstHardinessZones.Columns.Add("Nom", lstHardinessZones.Width - 5);

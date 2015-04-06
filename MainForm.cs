@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PlantManager
@@ -24,11 +25,12 @@ namespace PlantManager
 
             LoadHardinessZonesCombo();
 
+            LoadSunLevelsCombo();
+
             //Desactiver le bouton pour sauvegarder les changements.
             btSaveChanges.Enabled = false;
 
             //Cacher le TabControl.
-            tcPlant.Enabled = false;
             tcPlant.Visible = false;
         }
 
@@ -47,6 +49,7 @@ namespace PlantManager
             cbGenus.SelectedValue = _mCurrentPlant.Genus.Id;
 
             cbHardinessZones.SelectedValue = _mCurrentPlant.HardZone.Id;
+            cbSunLevels.SelectedValue = _mCurrentPlant.SunLvl.Id;
 
             udHeight.Value = _mCurrentPlant.Height;
             udWidth.Value = _mCurrentPlant.Width;
@@ -65,6 +68,7 @@ namespace PlantManager
         {
             Plant[] plants = Plant.GetAllPlant();
 
+            lstPlants.BeginUpdate();
             lstPlants.Items.Clear();
 
             foreach (Plant plant in plants)
@@ -76,6 +80,7 @@ namespace PlantManager
                     new ListViewItem(new[] {plant.Id.ToString(), customizeName + plant.Name, plant.Description});
                 lstPlants.Items.Add(lvi);
             }
+            lstPlants.EndUpdate();
         }
 
         private void LoadGenusCombo()
@@ -94,6 +99,15 @@ namespace PlantManager
             cbHardinessZones.DataSource = hardinessZones;
             cbHardinessZones.DisplayMember = "Name";
             cbHardinessZones.ValueMember = "ID";
+        }
+
+        private void LoadSunLevelsCombo()
+        {
+            SunLevel[] sunLevels = SunLevel.GetAllSunLevels();
+
+            cbSunLevels.DataSource = sunLevels;
+            cbSunLevels.DisplayMember = "Name";
+            cbSunLevels.ValueMember = "ID";
         }
 
         private void btDelete_Click(object sender, EventArgs e)
@@ -116,6 +130,8 @@ namespace PlantManager
 
         private void lstPlants_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Application.DoEvents();
+
             if (lstPlants.SelectedItems.Count > 0)
             {
                 string plantId = lstPlants.Items[lstPlants.SelectedIndices[0]].SubItems[0].Text;
@@ -123,14 +139,16 @@ namespace PlantManager
 
                 //Afficher un message si les modifications n'ont pas ete enregistres.
                 _mCurrentPlant = maPlante;
-                tcPlant.Enabled = true;
-                tcPlant.Visible = true;
+                
                 RefreshPlant();
+
+                if (tcPlant.Visible) return;
+                    tcPlant.Visible = true;
             }
             else
             {
-                tcPlant.Enabled = false;
-                tcPlant.Visible = false;
+               if (tcPlant.Visible == false) return;
+                    tcPlant.Visible = false;
             }
         }
 
@@ -164,6 +182,12 @@ namespace PlantManager
             if (udWidth.Value != _mCurrentPlant.Width)
                 Plant.UpdatePlantWidth(_mCurrentPlant.Id, (int) udWidth.Value);
 
+            if((int)cbHardinessZones.SelectedValue != _mCurrentPlant.HardZone.Id)
+                Plant.UpdatePlantHardinessZone(_mCurrentPlant.Id, (int) cbHardinessZones.SelectedValue);
+
+            if ((int) cbSunLevels.SelectedValue != _mCurrentPlant.SunLvl.Id)
+                Plant.UpdatePlantSunLevel(_mCurrentPlant.Id, (int) cbSunLevels.SelectedValue);
+
             btSaveChanges.Enabled = false;
         }
 
@@ -195,6 +219,9 @@ namespace PlantManager
 
         private void CheckChanges(object sender, EventArgs e)
         {
+            if (tcPlant.Visible == false)
+                return;
+
             bool enableSave = false;
 
             if (_mCurrentPlant == null)
@@ -219,6 +246,9 @@ namespace PlantManager
                 enableSave = true;
 
             if ((int) cbHardinessZones.SelectedValue != _mCurrentPlant.HardZone.Id)
+                enableSave = true;
+
+            if ((int) cbSunLevels.SelectedValue != _mCurrentPlant.SunLvl.Id)
                 enableSave = true;
 
             btSaveChanges.Enabled = enableSave;
@@ -264,5 +294,18 @@ namespace PlantManager
             if (_mCurrentPlant != null)
                 cbHardinessZones.SelectedValue = _mCurrentPlant.HardZone.Id;
         }
+
+        private void tsmiManageSunLevels_Click(object sender, EventArgs e)
+        {
+            ManageSunLevelsForm manageSunLevelsForm = new ManageSunLevelsForm();
+            manageSunLevelsForm.ShowDialog();
+
+            LoadSunLevelsCombo();
+
+            if (_mCurrentPlant != null)
+                cbSunLevels.SelectedValue = _mCurrentPlant.SunLvl.Id;
+        }
+
+
     }
 }

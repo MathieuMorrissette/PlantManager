@@ -52,7 +52,7 @@
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cbSunLevels = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.cbHardinessZones = new System.Windows.Forms.ComboBox();
@@ -70,6 +70,7 @@
             this.tsmiOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageGenus = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageHardinessZones = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiManageSunLevels = new System.Windows.Forms.ToolStripMenuItem();
             this.tcPlant.SuspendLayout();
             this.tpGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
@@ -269,7 +270,7 @@
             this.tpDetail.Controls.Add(this.comboBox4);
             this.tpDetail.Controls.Add(this.comboBox3);
             this.tpDetail.Controls.Add(this.label11);
-            this.tpDetail.Controls.Add(this.comboBox2);
+            this.tpDetail.Controls.Add(this.cbSunLevels);
             this.tpDetail.Controls.Add(this.label10);
             this.tpDetail.Controls.Add(this.label9);
             this.tpDetail.Controls.Add(this.cbHardinessZones);
@@ -341,14 +342,15 @@
             this.label11.TabIndex = 12;
             this.label11.Text = "Forme :";
             // 
-            // comboBox2
+            // cbSunLevels
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(28, 137);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 11;
+            this.cbSunLevels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSunLevels.FormattingEnabled = true;
+            this.cbSunLevels.Location = new System.Drawing.Point(28, 137);
+            this.cbSunLevels.Name = "cbSunLevels";
+            this.cbSunLevels.Size = new System.Drawing.Size(121, 21);
+            this.cbSunLevels.TabIndex = 11;
+            this.cbSunLevels.SelectedIndexChanged += new System.EventHandler(this.CheckChanges);
             // 
             // label10
             // 
@@ -472,7 +474,8 @@
             // 
             this.tsmiOptions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiManageGenus,
-            this.tsmiManageHardinessZones});
+            this.tsmiManageHardinessZones,
+            this.tsmiManageSunLevels});
             this.tsmiOptions.Name = "tsmiOptions";
             this.tsmiOptions.Size = new System.Drawing.Size(61, 20);
             this.tsmiOptions.Text = "Options";
@@ -480,16 +483,23 @@
             // tsmiManageGenus
             // 
             this.tsmiManageGenus.Name = "tsmiManageGenus";
-            this.tsmiManageGenus.Size = new System.Drawing.Size(167, 22);
+            this.tsmiManageGenus.Size = new System.Drawing.Size(201, 22);
             this.tsmiManageGenus.Text = "Genres";
             this.tsmiManageGenus.Click += new System.EventHandler(this.tsmiManageGenus_Click);
             // 
             // tsmiManageHardinessZones
             // 
             this.tsmiManageHardinessZones.Name = "tsmiManageHardinessZones";
-            this.tsmiManageHardinessZones.Size = new System.Drawing.Size(167, 22);
+            this.tsmiManageHardinessZones.Size = new System.Drawing.Size(201, 22);
             this.tsmiManageHardinessZones.Text = "Zones de rusticité";
             this.tsmiManageHardinessZones.Click += new System.EventHandler(this.tsmiManageHardinessZones_Click);
+            // 
+            // tsmiManageSunLevels
+            // 
+            this.tsmiManageSunLevels.Name = "tsmiManageSunLevels";
+            this.tsmiManageSunLevels.Size = new System.Drawing.Size(201, 22);
+            this.tsmiManageSunLevels.Text = "Niveau d\'ensoleillement";
+            this.tsmiManageSunLevels.Click += new System.EventHandler(this.tsmiManageSunLevels_Click);
             // 
             // MainForm
             // 
@@ -556,7 +566,7 @@
         private System.Windows.Forms.ComboBox comboBox4;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cbSunLevels;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cbHardinessZones;
@@ -567,6 +577,7 @@
         private System.Windows.Forms.NumericUpDown udHeight;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolStripMenuItem tsmiManageHardinessZones;
+        private System.Windows.Forms.ToolStripMenuItem tsmiManageSunLevels;
     }
 }
 

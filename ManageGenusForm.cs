@@ -8,6 +8,7 @@ namespace PlantManager
         public ManageGenusForm()
         {
             InitializeComponent();
+            btDelete.Enabled = false;
 
             lstGenus.Columns.Add("ID", 0);
             lstGenus.Columns.Add("Genre", lstGenus.Width - 5);
