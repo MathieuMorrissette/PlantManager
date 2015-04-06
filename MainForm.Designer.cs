@@ -47,7 +47,7 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tpDetail = new System.Windows.Forms.TabPage();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.cbSoilTypes = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.cbPlantTypes = new System.Windows.Forms.ComboBox();
@@ -72,9 +72,10 @@
             this.tsmiManageShapes = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageGenus = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageSunLevels = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiManagePlantTypes = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageHardinessZones = new System.Windows.Forms.ToolStripMenuItem();
             this.pbLoading = new System.Windows.Forms.PictureBox();
-            this.tsmiManagePlantTypes = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiManageSoilTypes = new System.Windows.Forms.ToolStripMenuItem();
             this.tcPlant.SuspendLayout();
             this.tpGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
@@ -269,7 +270,7 @@
             // 
             // tpDetail
             // 
-            this.tpDetail.Controls.Add(this.comboBox5);
+            this.tpDetail.Controls.Add(this.cbSoilTypes);
             this.tpDetail.Controls.Add(this.label13);
             this.tpDetail.Controls.Add(this.label12);
             this.tpDetail.Controls.Add(this.cbPlantTypes);
@@ -293,14 +294,15 @@
             this.tpDetail.Text = "Détails";
             this.tpDetail.UseVisualStyleBackColor = true;
             // 
-            // comboBox5
+            // cbSoilTypes
             // 
-            this.comboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(28, 262);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(121, 21);
-            this.comboBox5.TabIndex = 17;
+            this.cbSoilTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSoilTypes.FormattingEnabled = true;
+            this.cbSoilTypes.Location = new System.Drawing.Point(28, 262);
+            this.cbSoilTypes.Name = "cbSoilTypes";
+            this.cbSoilTypes.Size = new System.Drawing.Size(121, 21);
+            this.cbSoilTypes.TabIndex = 17;
+            this.cbSoilTypes.SelectedIndexChanged += new System.EventHandler(this.CheckChanges);
             // 
             // label13
             // 
@@ -484,6 +486,7 @@
             this.tsmiManageGenus,
             this.tsmiManageSunLevels,
             this.tsmiManagePlantTypes,
+            this.tsmiManageSoilTypes,
             this.tsmiManageHardinessZones});
             this.tsmiOptions.Name = "tsmiOptions";
             this.tsmiOptions.Size = new System.Drawing.Size(61, 20);
@@ -510,6 +513,13 @@
             this.tsmiManageSunLevels.Text = "Niveau d\'ensoleillement";
             this.tsmiManageSunLevels.Click += new System.EventHandler(this.tsmiManageSunLevels_Click);
             // 
+            // tsmiManagePlantTypes
+            // 
+            this.tsmiManagePlantTypes.Name = "tsmiManagePlantTypes";
+            this.tsmiManagePlantTypes.Size = new System.Drawing.Size(201, 22);
+            this.tsmiManagePlantTypes.Text = "Types de plantes";
+            this.tsmiManagePlantTypes.Click += new System.EventHandler(this.tsmiManagePlantTypes_Click);
+            // 
             // tsmiManageHardinessZones
             // 
             this.tsmiManageHardinessZones.Name = "tsmiManageHardinessZones";
@@ -528,12 +538,12 @@
             this.pbLoading.TabStop = false;
             this.pbLoading.Visible = false;
             // 
-            // tsmiManagePlantTypes
+            // tsmiManageSoilTypes
             // 
-            this.tsmiManagePlantTypes.Name = "tsmiManagePlantTypes";
-            this.tsmiManagePlantTypes.Size = new System.Drawing.Size(201, 22);
-            this.tsmiManagePlantTypes.Text = "Types de plantes";
-            this.tsmiManagePlantTypes.Click += new System.EventHandler(this.tsmiManagePlantTypes_Click);
+            this.tsmiManageSoilTypes.Name = "tsmiManageSoilTypes";
+            this.tsmiManageSoilTypes.Size = new System.Drawing.Size(201, 22);
+            this.tsmiManageSoilTypes.Text = "Types de sols";
+            this.tsmiManageSoilTypes.Click += new System.EventHandler(this.tsmiManageSoilTypes_Click);
             // 
             // MainForm
             // 
@@ -596,7 +606,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtCultivar;
-        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.ComboBox cbSoilTypes;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox cbPlantTypes;
@@ -617,6 +627,7 @@
         private System.Windows.Forms.PictureBox pbLoading;
         private System.Windows.Forms.ToolStripMenuItem tsmiManageShapes;
         private System.Windows.Forms.ToolStripMenuItem tsmiManagePlantTypes;
+        private System.Windows.Forms.ToolStripMenuItem tsmiManageSoilTypes;
     }
 }
 

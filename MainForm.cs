@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -31,6 +32,8 @@ namespace PlantManager
             LoadShapesCombo();
 
             LoadPlantTypesCombo();
+
+            LoadSoilTypesCombo();
 
             //Desactiver le bouton pour sauvegarder les changements.
             btSaveChanges.Enabled = false;
@@ -68,6 +71,7 @@ namespace PlantManager
                 cbSunLevels.SelectedValue = _mCurrentPlant.SunLvl.Id;
                 cbShapes.SelectedValue = _mCurrentPlant.Shape.Id;
                 cbPlantTypes.SelectedValue = _mCurrentPlant.PlantType.Id;
+                cbSoilTypes.SelectedValue = _mCurrentPlant.SoilType.Id;
 
                 udHeight.Value = _mCurrentPlant.Height;
                 udWidth.Value = _mCurrentPlant.Width;
@@ -163,22 +167,33 @@ namespace PlantManager
                 cbShapes.SelectedValue = _mCurrentPlant.Shape.Id;
         }
 
+        private void LoadSoilTypesCombo()
+        {
+            SoilType[] soilTypes = SoilType.GetAllSoilTypes();
+
+            cbSoilTypes.DataSource = soilTypes;
+            cbSoilTypes.DisplayMember = "Name";
+            cbSoilTypes.ValueMember = "ID";
+
+            if (_mCurrentPlant != null)
+                cbSoilTypes.SelectedValue = _mCurrentPlant.SoilType.Id;
+        }
+
         private void btDelete_Click(object sender, EventArgs e)
         {
-            if (lstPlants.SelectedItems.Count > 0)
+            if (lstPlants.SelectedItems.Count <= 0) return;
+
+            string plantId = lstPlants.Items[lstPlants.SelectedIndices[0]].SubItems[0].Text;
+
+            if (plantId == _mCurrentPlant.Id.ToString())
             {
-                string plantId = lstPlants.Items[lstPlants.SelectedIndices[0]].SubItems[0].Text;
-
-                if (plantId == _mCurrentPlant.Id.ToString())
-                {
-                    _mCurrentPlant = null;
-                    tcPlant.Visible = false;
-                    tcPlant.Enabled = false;
-                }
-
-                Plant.DeletePlantById(Convert.ToInt32(plantId));
-                ReloadListView();
+                _mCurrentPlant = null;
+                tcPlant.Visible = false;
+                tcPlant.Enabled = false;
             }
+
+            Plant.DeletePlantById(Convert.ToInt32(plantId));
+            ReloadListView();
         }
 
         private async void lstPlants_SelectedIndexChanged(object sender, EventArgs e)
@@ -242,8 +257,11 @@ namespace PlantManager
             if ((int) cbShapes.SelectedValue != _mCurrentPlant.Shape.Id)
                 Plant.UpdatePlantShape(_mCurrentPlant.Id, (int) cbShapes.SelectedValue);
 
-            if ((int)cbPlantTypes.SelectedValue != _mCurrentPlant.PlantType.Id)
+            if ((int) cbPlantTypes.SelectedValue != _mCurrentPlant.PlantType.Id)
                 Plant.UpdatePlantPlantType(_mCurrentPlant.Id, (int) cbPlantTypes.SelectedValue);
+
+            if ((int) cbSoilTypes.SelectedValue != _mCurrentPlant.SoilType.Id)
+                Plant.UpdatePlantSoilType(_mCurrentPlant.Id, (int) cbSoilTypes.SelectedValue);
 
             btSaveChanges.Enabled = false;
         }
@@ -313,6 +331,9 @@ namespace PlantManager
             if ((int) cbPlantTypes.SelectedValue != _mCurrentPlant.PlantType.Id)
                 enableSave = true;
 
+            if ((int) cbSoilTypes.SelectedValue != _mCurrentPlant.SoilType.Id)
+                enableSave = true;
+
             btSaveChanges.Enabled = enableSave;
         }
 
@@ -323,9 +344,9 @@ namespace PlantManager
 
             lstPlants.Items.Clear();
 
-            foreach (Plant plant in plants)
+            foreach (
+                ListViewItem lvi in plants.Select(plant => new ListViewItem(new[] {plant.Id.ToString(), plant.Name})))
             {
-                ListViewItem lvi = new ListViewItem(new[] {plant.Id.ToString(), plant.Name});
                 lstPlants.Items.Add(lvi);
             }
         }
@@ -341,9 +362,6 @@ namespace PlantManager
             manageGenusForm.ShowDialog();
 
             LoadGenusCombo();
-
-            if (_mCurrentPlant != null)
-                cbGenus.SelectedValue = _mCurrentPlant.Genus.Id;
         }
 
         private void tsmiManageHardinessZones_Click(object sender, EventArgs e)
@@ -352,9 +370,6 @@ namespace PlantManager
             manageHardinessZonesForm.ShowDialog();
 
             LoadHardinessZonesCombo();
-
-            if (_mCurrentPlant != null)
-                cbHardinessZones.SelectedValue = _mCurrentPlant.HardZone.Id;
         }
 
         private void tsmiManageSunLevels_Click(object sender, EventArgs e)
@@ -363,9 +378,6 @@ namespace PlantManager
             manageSunLevelsForm.ShowDialog();
 
             LoadSunLevelsCombo();
-
-            if (_mCurrentPlant != null)
-                cbSunLevels.SelectedValue = _mCurrentPlant.SunLvl.Id;
         }
 
         private void tsmiManageShapes_Click(object sender, EventArgs e)
@@ -374,9 +386,6 @@ namespace PlantManager
             manageShapesForm.ShowDialog();
 
             LoadShapesCombo();
-
-            if (_mCurrentPlant != null)
-                cbSunLevels.SelectedValue = _mCurrentPlant.SunLvl.Id;
         }
 
         private void tsmiManagePlantTypes_Click(object sender, EventArgs e)
@@ -385,9 +394,14 @@ namespace PlantManager
             managePlantTypesForm.ShowDialog();
 
             LoadPlantTypesCombo();
+        }
 
-            if (_mCurrentPlant != null)
-                cbPlantTypes.SelectedValue = _mCurrentPlant.SunLvl.Id;
+        private void tsmiManageSoilTypes_Click(object sender, EventArgs e)
+        {
+            ManageSoilTypesForm manageSoilTypesForm = new ManageSoilTypesForm();
+            manageSoilTypesForm.ShowDialog();
+
+            LoadSoilTypesCombo();
         }
     }
 }

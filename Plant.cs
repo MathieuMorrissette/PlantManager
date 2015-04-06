@@ -95,6 +95,11 @@ namespace PlantManager
             get { return PlantManager.PlantType.GetPlantTypeByPlantId(Id);  }
         }
 
+        public SoilType SoilType
+        {
+            get { return PlantManager.SoilType.GetSoilTypeByPlantId(Id); }
+        }
+
         private string GetPlantDescription()
         {
             DataRow plant = Db.QueryFirst("SELECT PlantDescription FROM Plants WHERE PlantID = ?", Id.ToString());
@@ -195,6 +200,18 @@ namespace PlantManager
             }
 
             Db.Execute("UPDATE Plants SET PlantPlantTypeID = ? WHERE PlantID = ?", dataPlantTypeId, plantId.ToString());
+        }
+
+        public static void UpdatePlantSoilType(int plantId, int soilTypeId)
+        {
+            string dataSoilTypeId = soilTypeId.ToString();
+
+            if (soilTypeId == -1)
+            {
+                dataSoilTypeId = string.Empty;
+            }
+
+            Db.Execute("UPDATE Plants SET PlantSoilTypeID = ? WHERE PlantID = ?", dataSoilTypeId, plantId.ToString());
         }
 
         public static void UpdatePlantCultivar(int plantId, string cultivar)
