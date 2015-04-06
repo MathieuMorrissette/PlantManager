@@ -85,6 +85,16 @@ namespace PlantManager
             get { return SunLevel.GetSunLevelByPlantId(Id); }
         }
 
+        public Shape Shape
+        {
+            get { return Shape.GetShapeByPlantId(Id); }
+        }
+
+        public PlantType PlantType
+        {
+            get { return PlantManager.PlantType.GetPlantTypeByPlantId(Id);  }
+        }
+
         private string GetPlantDescription()
         {
             DataRow plant = Db.QueryFirst("SELECT PlantDescription FROM Plants WHERE PlantID = ?", Id.ToString());
@@ -161,6 +171,30 @@ namespace PlantManager
             }
 
             Db.Execute("UPDATE Plants SET PlantSunLevelID = ? WHERE PlantID = ?", dataSunLevelId, plantId.ToString());
+        }
+
+        public static void UpdatePlantShape(int plantId, int shapeId)
+        {
+            string dataShapeId = shapeId.ToString();
+
+            if (shapeId == -1)
+            {
+                dataShapeId = string.Empty;
+            }
+
+            Db.Execute("UPDATE Plants SET PlantShapeID = ? WHERE PlantID = ?", dataShapeId, plantId.ToString());
+        }
+
+        public static void UpdatePlantPlantType(int plantId, int plantTypeId)
+        {
+            string dataPlantTypeId = plantTypeId.ToString();
+
+            if (plantTypeId == -1)
+            {
+                dataPlantTypeId = string.Empty;
+            }
+
+            Db.Execute("UPDATE Plants SET PlantPlantTypeID = ? WHERE PlantID = ?", dataPlantTypeId, plantId.ToString());
         }
 
         public static void UpdatePlantCultivar(int plantId, string cultivar)

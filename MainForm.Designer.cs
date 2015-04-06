@@ -50,8 +50,8 @@
             this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.cbPlantTypes = new System.Windows.Forms.ComboBox();
+            this.cbShapes = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.cbSunLevels = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -69,10 +69,12 @@
             this.tsmiFichier = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiClose = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiOptions = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiManageShapes = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageGenus = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiManageHardinessZones = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageSunLevels = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiManageHardinessZones = new System.Windows.Forms.ToolStripMenuItem();
             this.pbLoading = new System.Windows.Forms.PictureBox();
+            this.tsmiManagePlantTypes = new System.Windows.Forms.ToolStripMenuItem();
             this.tcPlant.SuspendLayout();
             this.tpGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
@@ -270,8 +272,8 @@
             this.tpDetail.Controls.Add(this.comboBox5);
             this.tpDetail.Controls.Add(this.label13);
             this.tpDetail.Controls.Add(this.label12);
-            this.tpDetail.Controls.Add(this.comboBox4);
-            this.tpDetail.Controls.Add(this.comboBox3);
+            this.tpDetail.Controls.Add(this.cbPlantTypes);
+            this.tpDetail.Controls.Add(this.cbShapes);
             this.tpDetail.Controls.Add(this.label11);
             this.tpDetail.Controls.Add(this.cbSunLevels);
             this.tpDetail.Controls.Add(this.label10);
@@ -318,23 +320,25 @@
             this.label12.TabIndex = 15;
             this.label12.Text = "Type de plante :";
             // 
-            // comboBox4
+            // cbPlantTypes
             // 
-            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(28, 217);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(121, 21);
-            this.comboBox4.TabIndex = 14;
+            this.cbPlantTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbPlantTypes.FormattingEnabled = true;
+            this.cbPlantTypes.Location = new System.Drawing.Point(28, 217);
+            this.cbPlantTypes.Name = "cbPlantTypes";
+            this.cbPlantTypes.Size = new System.Drawing.Size(121, 21);
+            this.cbPlantTypes.TabIndex = 14;
+            this.cbPlantTypes.SelectedIndexChanged += new System.EventHandler(this.CheckChanges);
             // 
-            // comboBox3
+            // cbShapes
             // 
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(28, 177);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
-            this.comboBox3.TabIndex = 13;
+            this.cbShapes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbShapes.FormattingEnabled = true;
+            this.cbShapes.Location = new System.Drawing.Point(28, 177);
+            this.cbShapes.Name = "cbShapes";
+            this.cbShapes.Size = new System.Drawing.Size(121, 21);
+            this.cbShapes.TabIndex = 13;
+            this.cbShapes.SelectedIndexChanged += new System.EventHandler(this.CheckChanges);
             // 
             // label11
             // 
@@ -476,12 +480,21 @@
             // tsmiOptions
             // 
             this.tsmiOptions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiManageShapes,
             this.tsmiManageGenus,
-            this.tsmiManageHardinessZones,
-            this.tsmiManageSunLevels});
+            this.tsmiManageSunLevels,
+            this.tsmiManagePlantTypes,
+            this.tsmiManageHardinessZones});
             this.tsmiOptions.Name = "tsmiOptions";
             this.tsmiOptions.Size = new System.Drawing.Size(61, 20);
             this.tsmiOptions.Text = "Options";
+            // 
+            // tsmiManageShapes
+            // 
+            this.tsmiManageShapes.Name = "tsmiManageShapes";
+            this.tsmiManageShapes.Size = new System.Drawing.Size(201, 22);
+            this.tsmiManageShapes.Text = "Formes";
+            this.tsmiManageShapes.Click += new System.EventHandler(this.tsmiManageShapes_Click);
             // 
             // tsmiManageGenus
             // 
@@ -490,19 +503,19 @@
             this.tsmiManageGenus.Text = "Genres";
             this.tsmiManageGenus.Click += new System.EventHandler(this.tsmiManageGenus_Click);
             // 
-            // tsmiManageHardinessZones
-            // 
-            this.tsmiManageHardinessZones.Name = "tsmiManageHardinessZones";
-            this.tsmiManageHardinessZones.Size = new System.Drawing.Size(201, 22);
-            this.tsmiManageHardinessZones.Text = "Zones de rusticité";
-            this.tsmiManageHardinessZones.Click += new System.EventHandler(this.tsmiManageHardinessZones_Click);
-            // 
             // tsmiManageSunLevels
             // 
             this.tsmiManageSunLevels.Name = "tsmiManageSunLevels";
             this.tsmiManageSunLevels.Size = new System.Drawing.Size(201, 22);
             this.tsmiManageSunLevels.Text = "Niveau d\'ensoleillement";
             this.tsmiManageSunLevels.Click += new System.EventHandler(this.tsmiManageSunLevels_Click);
+            // 
+            // tsmiManageHardinessZones
+            // 
+            this.tsmiManageHardinessZones.Name = "tsmiManageHardinessZones";
+            this.tsmiManageHardinessZones.Size = new System.Drawing.Size(201, 22);
+            this.tsmiManageHardinessZones.Text = "Zones de rusticité";
+            this.tsmiManageHardinessZones.Click += new System.EventHandler(this.tsmiManageHardinessZones_Click);
             // 
             // pbLoading
             // 
@@ -514,6 +527,13 @@
             this.pbLoading.TabIndex = 14;
             this.pbLoading.TabStop = false;
             this.pbLoading.Visible = false;
+            // 
+            // tsmiManagePlantTypes
+            // 
+            this.tsmiManagePlantTypes.Name = "tsmiManagePlantTypes";
+            this.tsmiManagePlantTypes.Size = new System.Drawing.Size(201, 22);
+            this.tsmiManagePlantTypes.Text = "Types de plantes";
+            this.tsmiManagePlantTypes.Click += new System.EventHandler(this.tsmiManagePlantTypes_Click);
             // 
             // MainForm
             // 
@@ -579,8 +599,8 @@
         private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox comboBox4;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox cbPlantTypes;
+        private System.Windows.Forms.ComboBox cbShapes;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox cbSunLevels;
         private System.Windows.Forms.Label label10;
@@ -595,6 +615,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiManageHardinessZones;
         private System.Windows.Forms.ToolStripMenuItem tsmiManageSunLevels;
         private System.Windows.Forms.PictureBox pbLoading;
+        private System.Windows.Forms.ToolStripMenuItem tsmiManageShapes;
+        private System.Windows.Forms.ToolStripMenuItem tsmiManagePlantTypes;
     }
 }
 

@@ -91,6 +91,18 @@
     <Compile Include="ManageHardinessZonesForm.Designer.cs">
       <DependentUpon>ManageHardinessZonesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManagePlantTypesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManagePlantTypesForm.Designer.cs">
+      <DependentUpon>ManagePlantTypesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageShapesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageShapesForm.Designer.cs">
+      <DependentUpon>ManageShapesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ManageSunLevelsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,8 +110,10 @@
       <DependentUpon>ManageSunLevelsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Plant.cs" />
+    <Compile Include="PlantType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shape.cs" />
     <Compile Include="SunLevel.cs" />
     <EmbeddedResource Include="AddPlantForm.resx">
       <DependentUpon>AddPlantForm.cs</DependentUpon>
@@ -112,6 +126,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ManageHardinessZonesForm.resx">
       <DependentUpon>ManageHardinessZonesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManagePlantTypesForm.resx">
+      <DependentUpon>ManagePlantTypesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageShapesForm.resx">
+      <DependentUpon>ManageShapesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManageSunLevelsForm.resx">
       <DependentUpon>ManageSunLevelsForm.cs</DependentUpon>
