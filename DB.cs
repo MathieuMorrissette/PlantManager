@@ -57,10 +57,7 @@ namespace PlantManager
             dTable.Load(reader);
             _dbConnection.Close();
 
-            if (dTable.Rows.Count == 0)
-                return null;
-
-            return dTable.Rows[0];
+            return dTable.Rows.Count == 0 ? null : dTable.Rows[0];
         }
 
         /* public static void CreateDatabase()

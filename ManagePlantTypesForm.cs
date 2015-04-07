@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PlantManager
@@ -40,7 +34,7 @@ namespace PlantManager
             PlantType[] plantTypes = PlantType.GetAllPlantTypes();
 
             foreach (
-                ListViewItem lvi in plantTypes.Select(item => new ListViewItem(new[] { item.Id.ToString(), item.Name })))
+                ListViewItem lvi in plantTypes.Select(item => new ListViewItem(new[] {item.Id.ToString(), item.Name})))
             {
                 lstPlantTypes.Items.Add(lvi);
             }

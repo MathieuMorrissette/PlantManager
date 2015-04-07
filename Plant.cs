@@ -92,12 +92,12 @@ namespace PlantManager
 
         public PlantType PlantType
         {
-            get { return PlantManager.PlantType.GetPlantTypeByPlantId(Id);  }
+            get { return PlantType.GetPlantTypeByPlantId(Id); }
         }
 
         public SoilType SoilType
         {
-            get { return PlantManager.SoilType.GetSoilTypeByPlantId(Id); }
+            get { return SoilType.GetSoilTypeByPlantId(Id); }
         }
 
         private string GetPlantDescription()

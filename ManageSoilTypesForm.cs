@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PlantManager
@@ -30,12 +24,11 @@ namespace PlantManager
             SoilType[] soilTypes = SoilType.GetAllSoilTypes();
 
             foreach (
-                ListViewItem lvi in soilTypes.Select(item => new ListViewItem(new[] { item.Id.ToString(), item.Name })))
+                ListViewItem lvi in soilTypes.Select(item => new ListViewItem(new[] {item.Id.ToString(), item.Name})))
             {
                 lstSoilTypes.Items.Add(lvi);
             }
         }
-
 
         private void lstSoilTypes_SelectedIndexChanged(object sender, EventArgs e)
         {
