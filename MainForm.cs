@@ -57,12 +57,13 @@ namespace PlantManager
             {
                 pbImage.Image = null;
                 txtDescription.Text = string.Empty;
-                txtName.Text = string.Empty;
+                lblName.Text = string.Empty;
                 udHeight.Value = 0;
                 udWidth.Value = 0;
 
-                txtName.Text = _mCurrentPlant.Name;
+                lblName.Text = _mCurrentPlant.Name;
                 txtCultivar.Text = _mCurrentPlant.Cultivar;
+                txtSpecies.Text = _mCurrentPlant.Species;
 
                 txtDescription.Text = _mCurrentPlant.Description;
                 cbGenus.SelectedValue = _mCurrentPlant.Genus.Id;
@@ -86,8 +87,7 @@ namespace PlantManager
 
         private void CheckControlsStates()
         {
-            if (_mCurrentPlant != null)
-            {
+            if (_mCurrentPlant != null)           {
                 if (_mCurrentPlant.Images.Length > 1)
                 {
                     btLeftImage.Enabled = true;
@@ -244,20 +244,17 @@ namespace PlantManager
             {
                 return;
             }
-            if (txtName.Text.Length < 1)
+            if (txtSpecies.Text.Length < 1)
             {
                 MessageBox.Show(Constants.DialogNameCannotBeBlank);
+                return;
             }
 
-            if (txtName.Text != _mCurrentPlant.Name ||
-                txtDescription.Text != _mCurrentPlant.Description)
+            if (txtSpecies.Text != _mCurrentPlant.Name ||
+                txtDescription.Text != _mCurrentPlant.Description || txtSpecies.Text != _mCurrentPlant.Species || (int)cbGenus.SelectedValue != _mCurrentPlant.Genus.Id)
             {
-                Plant.UpdatePlantBase(_mCurrentPlant.Id, txtName.Text, txtDescription.Text);
+                Plant.UpdatePlantBase(_mCurrentPlant.Id, (int)cbGenus.SelectedValue, txtSpecies.Text, txtDescription.Text);
             }
-
-
-            if ((int) cbGenus.SelectedValue != _mCurrentPlant.Genus.Id)
-                Plant.UpdatePlantGenus(_mCurrentPlant.Id, (int) cbGenus.SelectedValue);
 
             if (txtCultivar.Text != _mCurrentPlant.Cultivar)
                 Plant.UpdatePlantCultivar(_mCurrentPlant.Id, txtCultivar.Text);
@@ -333,7 +330,12 @@ namespace PlantManager
             if (_mCurrentPlant == null)
                 return;
 
-            if (txtName.Text != _mCurrentPlant.Name)
+            if (txtSpecies.Text != _mCurrentPlant.Species || (int)cbGenus.SelectedValue != _mCurrentPlant.Genus.Id || txtCultivar.Text != _mCurrentPlant.Cultivar)
+            {
+                RefreshName();
+            }
+
+            if (txtSpecies.Text != _mCurrentPlant.Species)
                 enableSave = true;
 
             if (txtDescription.Text != _mCurrentPlant.Description)
@@ -381,6 +383,11 @@ namespace PlantManager
             {
                 lstPlants.Items.Add(lvi);
             }
+        }
+
+        private void RefreshName()
+        {
+            lblName.Text = cbGenus.SelectedItem.ToString() + " " + txtSpecies.Text + " " + txtCultivar.Text;
         }
 
         private void tsmiClose_Click(object sender, EventArgs e)

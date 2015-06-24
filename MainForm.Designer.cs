@@ -46,7 +46,6 @@
             this.btAddImage = new System.Windows.Forms.Button();
             this.pbImage = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tpDetail = new System.Windows.Forms.TabPage();
             this.cbSoilTypes = new System.Windows.Forms.ComboBox();
@@ -78,6 +77,9 @@
             this.tsmiManageSoilTypes = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageHardinessZones = new System.Windows.Forms.ToolStripMenuItem();
             this.pbLoading = new System.Windows.Forms.PictureBox();
+            this.lblName = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtSpecies = new System.Windows.Forms.TextBox();
             this.tcPlant.SuspendLayout();
             this.tpGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
@@ -150,6 +152,9 @@
             // 
             // tpGeneral
             // 
+            this.tpGeneral.Controls.Add(this.label14);
+            this.tpGeneral.Controls.Add(this.txtSpecies);
+            this.tpGeneral.Controls.Add(this.lblName);
             this.tpGeneral.Controls.Add(this.btRightImage);
             this.tpGeneral.Controls.Add(this.btLeftImage);
             this.tpGeneral.Controls.Add(this.label4);
@@ -161,7 +166,6 @@
             this.tpGeneral.Controls.Add(this.btAddImage);
             this.tpGeneral.Controls.Add(this.pbImage);
             this.tpGeneral.Controls.Add(this.label1);
-            this.tpGeneral.Controls.Add(this.txtName);
             this.tpGeneral.Controls.Add(this.label2);
             this.tpGeneral.Location = new System.Drawing.Point(4, 22);
             this.tpGeneral.Name = "tpGeneral";
@@ -194,7 +198,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 88);
+            this.label4.Location = new System.Drawing.Point(13, 101);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(48, 13);
             this.label4.TabIndex = 13;
@@ -202,7 +206,7 @@
             // 
             // txtCultivar
             // 
-            this.txtCultivar.Location = new System.Drawing.Point(83, 85);
+            this.txtCultivar.Location = new System.Drawing.Point(83, 98);
             this.txtCultivar.Name = "txtCultivar";
             this.txtCultivar.Size = new System.Drawing.Size(222, 20);
             this.txtCultivar.TabIndex = 14;
@@ -230,7 +234,7 @@
             // 
             // btSearchImage
             // 
-            this.btSearchImage.Location = new System.Drawing.Point(83, 264);
+            this.btSearchImage.Location = new System.Drawing.Point(83, 277);
             this.btSearchImage.Name = "btSearchImage";
             this.btSearchImage.Size = new System.Drawing.Size(222, 23);
             this.btSearchImage.TabIndex = 10;
@@ -240,7 +244,7 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(83, 122);
+            this.txtDescription.Location = new System.Drawing.Point(83, 135);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(222, 136);
@@ -276,18 +280,10 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Nom :";
             // 
-            // txtName
-            // 
-            this.txtName.Location = new System.Drawing.Point(83, 10);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(222, 20);
-            this.txtName.TabIndex = 5;
-            this.txtName.TextChanged += new System.EventHandler(this.CheckChanges);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 125);
+            this.label2.Location = new System.Drawing.Point(13, 138);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 6;
@@ -570,6 +566,31 @@
             this.pbLoading.TabStop = false;
             this.pbLoading.Visible = false;
             // 
+            // lblName
+            // 
+            this.lblName.Location = new System.Drawing.Point(80, 13);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(225, 13);
+            this.lblName.TabIndex = 15;
+            this.lblName.Text = "Name";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(13, 75);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(49, 13);
+            this.label14.TabIndex = 17;
+            this.label14.Text = "Espèce :";
+            // 
+            // txtSpecies
+            // 
+            this.txtSpecies.Location = new System.Drawing.Point(83, 72);
+            this.txtSpecies.Name = "txtSpecies";
+            this.txtSpecies.Size = new System.Drawing.Size(222, 20);
+            this.txtSpecies.TabIndex = 18;
+            this.txtSpecies.TextChanged += new System.EventHandler(this.CheckChanges);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -616,7 +637,6 @@
         private System.Windows.Forms.Button btAddImage;
         private System.Windows.Forms.PictureBox pbImage;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabPage tpDetail;
         private System.Windows.Forms.Button btSearchImage;
@@ -655,6 +675,9 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiManageSoilTypes;
         private System.Windows.Forms.Button btRightImage;
         private System.Windows.Forms.Button btLeftImage;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtSpecies;
+        private System.Windows.Forms.Label lblName;
     }
 }
 

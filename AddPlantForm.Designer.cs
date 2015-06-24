@@ -31,14 +31,18 @@
             this.btAdd = new System.Windows.Forms.Button();
             this.btCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.TextBox();
+            this.cbGenus = new System.Windows.Forms.ComboBox();
+            this.lblSpecies = new System.Windows.Forms.Label();
+            this.txtSpecies = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtCultivar = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btAdd
             // 
-            this.btAdd.Location = new System.Drawing.Point(17, 196);
+            this.btAdd.Location = new System.Drawing.Point(17, 250);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(75, 23);
             this.btAdd.TabIndex = 0;
@@ -48,7 +52,7 @@
             // 
             // btCancel
             // 
-            this.btCancel.Location = new System.Drawing.Point(272, 196);
+            this.btCancel.Location = new System.Drawing.Point(272, 250);
             this.btCancel.Name = "btCancel";
             this.btCancel.Size = new System.Drawing.Size(75, 23);
             this.btCancel.TabIndex = 1;
@@ -59,23 +63,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 16);
+            this.label1.Location = new System.Drawing.Point(38, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(42, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Nom :";
-            // 
-            // txtName
-            // 
-            this.txtName.Location = new System.Drawing.Point(88, 13);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(259, 20);
-            this.txtName.TabIndex = 3;
+            this.label1.Text = "Genre :";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 47);
+            this.label2.Location = new System.Drawing.Point(14, 101);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 4;
@@ -83,20 +80,66 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(88, 47);
+            this.txtDescription.Location = new System.Drawing.Point(88, 101);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(259, 133);
             this.txtDescription.TabIndex = 5;
             // 
+            // cbGenus
+            // 
+            this.cbGenus.AllowDrop = true;
+            this.cbGenus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbGenus.FormattingEnabled = true;
+            this.cbGenus.Location = new System.Drawing.Point(88, 16);
+            this.cbGenus.Name = "cbGenus";
+            this.cbGenus.Size = new System.Drawing.Size(259, 21);
+            this.cbGenus.TabIndex = 13;
+            // 
+            // lblSpecies
+            // 
+            this.lblSpecies.AutoSize = true;
+            this.lblSpecies.Location = new System.Drawing.Point(32, 46);
+            this.lblSpecies.Name = "lblSpecies";
+            this.lblSpecies.Size = new System.Drawing.Size(49, 13);
+            this.lblSpecies.TabIndex = 21;
+            this.lblSpecies.Text = "Espèce :";
+            // 
+            // txtSpecies
+            // 
+            this.txtSpecies.Location = new System.Drawing.Point(88, 43);
+            this.txtSpecies.Name = "txtSpecies";
+            this.txtSpecies.Size = new System.Drawing.Size(259, 20);
+            this.txtSpecies.TabIndex = 22;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(32, 72);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(48, 13);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Cultivar :";
+            // 
+            // txtCultivar
+            // 
+            this.txtCultivar.Location = new System.Drawing.Point(88, 69);
+            this.txtCultivar.Name = "txtCultivar";
+            this.txtCultivar.Size = new System.Drawing.Size(259, 20);
+            this.txtCultivar.TabIndex = 20;
+            // 
             // AddPlantForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(359, 232);
+            this.ClientSize = new System.Drawing.Size(359, 285);
+            this.Controls.Add(this.lblSpecies);
+            this.Controls.Add(this.txtSpecies);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtCultivar);
+            this.Controls.Add(this.cbGenus);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btCancel);
             this.Controls.Add(this.btAdd);
@@ -112,8 +155,12 @@
         private System.Windows.Forms.Button btAdd;
         private System.Windows.Forms.Button btCancel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtDescription;
+        private System.Windows.Forms.ComboBox cbGenus;
+        private System.Windows.Forms.Label lblSpecies;
+        private System.Windows.Forms.TextBox txtSpecies;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtCultivar;
     }
 }

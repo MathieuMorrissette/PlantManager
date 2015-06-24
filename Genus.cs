@@ -16,10 +16,10 @@ namespace PlantManager
         public int Id { get; private set; }
         public string Name { get; private set; }
 
-        public static Genus GetGenusByPlantId(int genusId)
+        public static Genus GetGenusByPlantId(int plantId)
         {
             DataRow item = Db.QueryFirst(
-                "SELECT * FROM Plants INNER JOIN Genus On PlantGenusID = GenusID WHERE PlantID = ?", genusId.ToString());
+                "SELECT * FROM Plants INNER JOIN Genus On PlantGenusID = GenusID WHERE PlantID = ?", plantId.ToString());
 
             return item == null
                 ? GetDefaultGenus()

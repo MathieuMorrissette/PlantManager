@@ -41,6 +41,11 @@ namespace PlantManager
             get { return GetPlantCultivar(); }
         }
 
+        public string Species
+        {
+            get { return GetPlantSpecies();  }
+        }
+
         public Image[] Images
         {
             get
@@ -122,14 +127,14 @@ namespace PlantManager
             Db.Execute("DELETE FROM Plants WHERE PlantID = ?", id.ToString());
         }
 
-        public static void AddPlant(string name, string description)
+        public static void AddPlant(int genusId, string species, string cultivar, string description)
         {
-            Db.Execute("INSERT INTO Plants (PlantName, PlantDescription) VALUES (?, ?)", name, description);
+            Db.Execute("INSERT INTO Plants (PlantGenusID, PlantSpecies, PlantCultivar, PlantDescription) VALUES (?, ?, ?, ?)", genusId.ToString(), species, cultivar, description);
         }
 
-        public static void UpdatePlantBase(int id, string name, string description)
+        public static void UpdatePlantBase(int id, int genusId, string species, string description)
         {
-            Db.Execute("UPDATE Plants SET PlantName = ?, PlantDescription = ? WHERE PlantID = ?", name, description,
+            Db.Execute("UPDATE Plants SET PlantGenusID = ?, PlantSpecies = ?, PlantDescription = ? WHERE PlantID = ?", genusId.ToString(), species, description,
                 id.ToString());
         }
 
@@ -210,6 +215,11 @@ namespace PlantManager
             Db.Execute("UPDATE Plants SET PlantCultivar = ? WHERE PlantID = ?", cultivar, plantId.ToString());
         }
 
+        public static void UpdatePlantSpecies(int plantId, string species)
+        {
+            Db.Execute("UPDATE Plants SET PlantSpecies = ? WHERE PlantID = ?", species, plantId.ToString());
+        }
+
         public static void UpdatePlantWidth(int plantId, int width)
         {
             Db.Execute("UPDATE Plants SET PlantWidth = ? WHERE PlantID = ?", width.ToString(), plantId.ToString());
@@ -222,14 +232,19 @@ namespace PlantManager
 
         private string GetPlantName()
         {
-            DataRow plant = Db.QueryFirst("SELECT PlantName FROM Plants WHERE PlantID = ?", Id.ToString());
-            return plant["PlantName"].ToString();
+            return Genus.GetGenusByPlantId(Id).Name + " " + GetPlantSpecies() + " " + GetPlantCultivar();
         }
 
         private string GetPlantCultivar()
         {
             DataRow plant = Db.QueryFirst("SELECT PlantCultivar FROM Plants WHERE PlantID = ?", Id.ToString());
             return plant["PlantCultivar"].ToString();
+        }
+
+        private string GetPlantSpecies()
+        {
+            DataRow plant = Db.QueryFirst("SELECT PlantSpecies FROM Plants WHERE PlantID = ?", Id.ToString());
+            return plant["PlantSpecies"].ToString();
         }
 
         private int GetPlantWidth()
