@@ -73,9 +73,11 @@
             this.tsmiManageGenus = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageSunLevels = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManagePlantTypes = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiManageSoilTypes = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageHardinessZones = new System.Windows.Forms.ToolStripMenuItem();
             this.pbLoading = new System.Windows.Forms.PictureBox();
-            this.tsmiManageSoilTypes = new System.Windows.Forms.ToolStripMenuItem();
+            this.btLeftImage = new System.Windows.Forms.Button();
+            this.btRightImage = new System.Windows.Forms.Button();
             this.tcPlant.SuspendLayout();
             this.tpGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
@@ -148,6 +150,8 @@
             // 
             // tpGeneral
             // 
+            this.tpGeneral.Controls.Add(this.btRightImage);
+            this.tpGeneral.Controls.Add(this.btLeftImage);
             this.tpGeneral.Controls.Add(this.label4);
             this.tpGeneral.Controls.Add(this.txtCultivar);
             this.tpGeneral.Controls.Add(this.cbGenus);
@@ -225,7 +229,7 @@
             // 
             // btAddImage
             // 
-            this.btAddImage.Location = new System.Drawing.Point(311, 264);
+            this.btAddImage.Location = new System.Drawing.Point(311, 293);
             this.btAddImage.Name = "btAddImage";
             this.btAddImage.Size = new System.Drawing.Size(245, 23);
             this.btAddImage.TabIndex = 9;
@@ -238,7 +242,7 @@
             this.pbImage.Location = new System.Drawing.Point(311, 13);
             this.pbImage.Name = "pbImage";
             this.pbImage.Size = new System.Drawing.Size(245, 245);
-            this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbImage.TabIndex = 1;
             this.pbImage.TabStop = false;
             // 
@@ -520,6 +524,13 @@
             this.tsmiManagePlantTypes.Text = "Types de plantes";
             this.tsmiManagePlantTypes.Click += new System.EventHandler(this.tsmiManagePlantTypes_Click);
             // 
+            // tsmiManageSoilTypes
+            // 
+            this.tsmiManageSoilTypes.Name = "tsmiManageSoilTypes";
+            this.tsmiManageSoilTypes.Size = new System.Drawing.Size(201, 22);
+            this.tsmiManageSoilTypes.Text = "Types de sols";
+            this.tsmiManageSoilTypes.Click += new System.EventHandler(this.tsmiManageSoilTypes_Click);
+            // 
             // tsmiManageHardinessZones
             // 
             this.tsmiManageHardinessZones.Name = "tsmiManageHardinessZones";
@@ -538,12 +549,25 @@
             this.pbLoading.TabStop = false;
             this.pbLoading.Visible = false;
             // 
-            // tsmiManageSoilTypes
+            // btLeftImage
             // 
-            this.tsmiManageSoilTypes.Name = "tsmiManageSoilTypes";
-            this.tsmiManageSoilTypes.Size = new System.Drawing.Size(201, 22);
-            this.tsmiManageSoilTypes.Text = "Types de sols";
-            this.tsmiManageSoilTypes.Click += new System.EventHandler(this.tsmiManageSoilTypes_Click);
+            this.btLeftImage.Location = new System.Drawing.Point(312, 264);
+            this.btLeftImage.Name = "btLeftImage";
+            this.btLeftImage.Size = new System.Drawing.Size(31, 23);
+            this.btLeftImage.TabIndex = 15;
+            this.btLeftImage.Text = "<";
+            this.btLeftImage.UseVisualStyleBackColor = true;
+            this.btLeftImage.Click += new System.EventHandler(this.btLeftImage_Click);
+            // 
+            // btRightImage
+            // 
+            this.btRightImage.Location = new System.Drawing.Point(526, 264);
+            this.btRightImage.Name = "btRightImage";
+            this.btRightImage.Size = new System.Drawing.Size(31, 23);
+            this.btRightImage.TabIndex = 16;
+            this.btRightImage.Text = ">";
+            this.btRightImage.UseVisualStyleBackColor = true;
+            this.btRightImage.Click += new System.EventHandler(this.btRightImage_Click);
             // 
             // MainForm
             // 
@@ -628,6 +652,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiManageShapes;
         private System.Windows.Forms.ToolStripMenuItem tsmiManagePlantTypes;
         private System.Windows.Forms.ToolStripMenuItem tsmiManageSoilTypes;
+        private System.Windows.Forms.Button btRightImage;
+        private System.Windows.Forms.Button btLeftImage;
     }
 }
 

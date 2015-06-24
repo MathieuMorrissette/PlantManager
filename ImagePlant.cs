@@ -1,62 +1,71 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Text;
 
 namespace PlantManager
 {
     public class ImagePlant
     {
-        public ImagePlant(int imageId, int plantId, string filePath)
+        public ImagePlant(int imageId, int plantId, Image image)
         {
             ImageId = imageId;
             PlantId = plantId;
-            FilePath = filePath;
+            Image = image;
         }
 
         public int ImageId { get; private set; }
         public int PlantId { get; private set; }
-        public string FilePath { get; private set; }
+        public Image Image { get; private set; }
 
-        public static ImagePlant GetImageByPlantId(int id)
+        public static ImagePlant[] GetImagesByPlantId(int id)
         {
-            DataRow image = Db.QueryFirst("SELECT * FROM Images WHERE ImagePlantID = ?", id.ToString());
+            DataTable images = Db.Query("SELECT * FROM Images WHERE ImagePlantID = ?", id.ToString());
 
-            if (image == null)
+            if (images == null)
                 return null;
 
-            return new ImagePlant(Convert.ToInt32(image["ImageID"]), Convert.ToInt32(image["ImagePlantID"]),
-                image["ImageFilePath"].ToString());
-        }
-
-        /* public static string ImageBase64Encode(string _imagePath)
-        {
-            Image image = Image.FromFile(_imagePath);
-
-            using (MemoryStream m = new MemoryStream())
+            List<ImagePlant> lstImages = new List<ImagePlant>();
+            foreach (DataRow image in images.Rows)
             {
-                image.Save(m, image.RawFormat);
-                byte[] imageBytes = m.ToArray();
+                lstImages.Add
+                    (
+                    new ImagePlant(Convert.ToInt32(image["ImageID"]), Convert.ToInt32(image["ImagePlantID"]),
+                                    byteArrayToImage(Convert.FromBase64String((string)image["ImageData"])))
+                );
+            }
 
-                // Convert byte[] to Base64 String
-                string base64String = Convert.ToBase64String(imageBytes);
-                return base64String;
-            }         
+            return lstImages.ToArray();
         }
 
-        public static Image ImageBase64Decode(string _base64Data)
+        public static byte[] imageToByteArray(Image imageIn)
         {
-            // Convert Base64 String to byte[]
-            byte[] imageBytes = Convert.FromBase64String(_base64Data);
-            MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
+            return ms.ToArray();
+        }
 
-            // Convert byte[] to Image
-            ms.Write(imageBytes, 0, imageBytes.Length);
-            Image image = Image.FromStream(ms, true);
-            return image;
-        }*/
+        public static Image byteArrayToImage(byte[] byteArrayIn)
+        {
+            MemoryStream ms = new MemoryStream(byteArrayIn);
+            Image returnImage = Image.FromStream(ms);
+            return returnImage;
+        }
 
         public static void AddImage(int plantId, string imagePath)
         {
-            Db.Execute("INSERT INTO Images (ImagePlantID, ImageFilePath) VALUES (?,?)", plantId.ToString(), imagePath);
+            try
+            {
+                Image img = Image.FromFile(imagePath);
+                byte[] imageData = imageToByteArray(img);
+                Db.Execute("INSERT INTO Images (ImagePlantID, ImageData) VALUES (?,?)", plantId.ToString(), Convert.ToBase64String(imageData));
+            }
+            catch (Exception ex)
+            {
+                //LogManager.LogSilentError()
+            }
         }
 
         public static void DeleteImageByPlantId(int plantId)

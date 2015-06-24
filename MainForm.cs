@@ -76,9 +76,29 @@ namespace PlantManager
                 udHeight.Value = _mCurrentPlant.Height;
                 udWidth.Value = _mCurrentPlant.Width;
 
-                pbImage.Image = _mCurrentPlant.Img;
+                ShowPlantImage();
+
+                this.CheckControlsStates();
+
             }));
             Invoke(new MethodInvoker(delegate { pbLoading.Visible = false; }));
+        }
+
+        private void CheckControlsStates()
+        {
+            if (_mCurrentPlant != null)
+            {
+                if (_mCurrentPlant.Images.Length > 1)
+                {
+                    btLeftImage.Enabled = true;
+                    btRightImage.Enabled = true;
+                }
+                else
+                {
+                    btLeftImage.Enabled = false;
+                    btRightImage.Enabled = false; 
+                }
+            }
         }
 
         private void btAdd_Click(object sender, EventArgs e)
@@ -273,10 +293,22 @@ namespace PlantManager
 
             if (_mCurrentPlant == null) return;
 
-            ImagePlant.DeleteImageByPlantId(_mCurrentPlant.Id);
             ImagePlant.AddImage(_mCurrentPlant.Id, dlg.FileName);
 
-            pbImage.Image = _mCurrentPlant.Img;
+            ShowPlantImage();
+
+            CheckControlsStates();
+        }
+
+        private void ShowPlantImage()
+        {
+            if (_mCurrentPlant == null) return;
+
+            if (_mCurrentPlant.Images.Length > 0)
+            {
+                pbImage.Image = _mCurrentPlant.Images[0];
+                pbImage.Tag = 0;
+            }
         }
 
         private void btSearchImage_Click(object sender, EventArgs e)
@@ -402,6 +434,44 @@ namespace PlantManager
             manageSoilTypesForm.ShowDialog();
 
             LoadSoilTypesCombo();
+        }
+
+        private void btLeftImage_Click(object sender, EventArgs e)
+        {
+            if (_mCurrentPlant == null) return;
+
+            int currentImage = (int)pbImage.Tag;
+
+            if (currentImage - 1 < 0)
+            {
+                currentImage = _mCurrentPlant.Images.Length - 1;
+            }
+            else
+            {
+                currentImage--;
+            }
+
+            pbImage.Image = _mCurrentPlant.Images[currentImage];
+            pbImage.Tag = currentImage;
+        }
+
+        private void btRightImage_Click(object sender, EventArgs e)
+        {
+            if (_mCurrentPlant == null) return;
+
+            int currentImage = (int)pbImage.Tag;
+
+            if (currentImage + 1 >= _mCurrentPlant.Images.Length)
+            {
+                currentImage = 0;
+            }
+            else
+            {
+                currentImage++;
+            }
+
+            pbImage.Image = _mCurrentPlant.Images[currentImage];
+            pbImage.Tag = currentImage;
         }
     }
 }

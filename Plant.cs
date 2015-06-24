@@ -41,27 +41,18 @@ namespace PlantManager
             get { return GetPlantCultivar(); }
         }
 
-        public Image Img
+        public Image[] Images
         {
             get
             {
-                ImagePlant img = ImagePlant.GetImageByPlantId(Id);
-                if (img != null)
+                ImagePlant[] images = ImagePlant.GetImagesByPlantId(Id);
+
+                if (images != null)
                 {
-                    if (File.Exists(img.FilePath))
-                    {
-                        try
-                        {
-                            return Image.FromFile(img.FilePath);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(Resources.MSG_IMG_NOT_VALID + ex.Message);
-                        }
-                    }
+                    return images.Select(x => x.Image).ToArray();
                 }
 
-                return Image.FromFile(Constants.ImgPathNotFound);
+                return new[] { Image.FromFile(Constants.ImgPathNotFound) };
             }
         }
 
