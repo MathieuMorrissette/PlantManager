@@ -35,6 +35,8 @@
             this.btSaveChanges = new System.Windows.Forms.Button();
             this.tcPlant = new System.Windows.Forms.TabControl();
             this.tpGeneral = new System.Windows.Forms.TabPage();
+            this.btRightImage = new System.Windows.Forms.Button();
+            this.btLeftImage = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCultivar = new System.Windows.Forms.TextBox();
             this.cbGenus = new System.Windows.Forms.ComboBox();
@@ -76,8 +78,6 @@
             this.tsmiManageSoilTypes = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageHardinessZones = new System.Windows.Forms.ToolStripMenuItem();
             this.pbLoading = new System.Windows.Forms.PictureBox();
-            this.btLeftImage = new System.Windows.Forms.Button();
-            this.btRightImage = new System.Windows.Forms.Button();
             this.tcPlant.SuspendLayout();
             this.tpGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
@@ -171,6 +171,26 @@
             this.tpGeneral.Text = "Général";
             this.tpGeneral.UseVisualStyleBackColor = true;
             // 
+            // btRightImage
+            // 
+            this.btRightImage.Location = new System.Drawing.Point(526, 264);
+            this.btRightImage.Name = "btRightImage";
+            this.btRightImage.Size = new System.Drawing.Size(31, 23);
+            this.btRightImage.TabIndex = 16;
+            this.btRightImage.Text = ">";
+            this.btRightImage.UseVisualStyleBackColor = true;
+            this.btRightImage.Click += new System.EventHandler(this.btRightImage_Click);
+            // 
+            // btLeftImage
+            // 
+            this.btLeftImage.Location = new System.Drawing.Point(312, 264);
+            this.btLeftImage.Name = "btLeftImage";
+            this.btLeftImage.Size = new System.Drawing.Size(31, 23);
+            this.btLeftImage.TabIndex = 15;
+            this.btLeftImage.Text = "<";
+            this.btLeftImage.UseVisualStyleBackColor = true;
+            this.btLeftImage.Click += new System.EventHandler(this.btLeftImage_Click);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -245,6 +265,7 @@
             this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbImage.TabIndex = 1;
             this.pbImage.TabStop = false;
+            this.pbImage.DoubleClick += new System.EventHandler(this.pbImage_DoubleClick);
             // 
             // label1
             // 
@@ -548,26 +569,6 @@
             this.pbLoading.TabIndex = 14;
             this.pbLoading.TabStop = false;
             this.pbLoading.Visible = false;
-            // 
-            // btLeftImage
-            // 
-            this.btLeftImage.Location = new System.Drawing.Point(312, 264);
-            this.btLeftImage.Name = "btLeftImage";
-            this.btLeftImage.Size = new System.Drawing.Size(31, 23);
-            this.btLeftImage.TabIndex = 15;
-            this.btLeftImage.Text = "<";
-            this.btLeftImage.UseVisualStyleBackColor = true;
-            this.btLeftImage.Click += new System.EventHandler(this.btLeftImage_Click);
-            // 
-            // btRightImage
-            // 
-            this.btRightImage.Location = new System.Drawing.Point(526, 264);
-            this.btRightImage.Name = "btRightImage";
-            this.btRightImage.Size = new System.Drawing.Size(31, 23);
-            this.btRightImage.TabIndex = 16;
-            this.btRightImage.Text = ">";
-            this.btRightImage.UseVisualStyleBackColor = true;
-            this.btRightImage.Click += new System.EventHandler(this.btRightImage_Click);
             // 
             // MainForm
             // 

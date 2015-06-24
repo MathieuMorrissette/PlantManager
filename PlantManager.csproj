@@ -122,6 +122,12 @@
     <Compile Include="Shape.cs" />
     <Compile Include="SoilType.cs" />
     <Compile Include="SunLevel.cs" />
+    <Compile Include="ViewPictureForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewPictureForm.Designer.cs">
+      <DependentUpon>ViewPictureForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddPlantForm.resx">
       <DependentUpon>AddPlantForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -156,6 +162,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ViewPictureForm.resx">
+      <DependentUpon>ViewPictureForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -473,5 +473,12 @@ namespace PlantManager
             pbImage.Image = _mCurrentPlant.Images[currentImage];
             pbImage.Tag = currentImage;
         }
+
+        private void pbImage_DoubleClick(object sender, EventArgs e)
+        {
+            if (_mCurrentPlant == null) return;
+            ViewPictureForm viewPicture = new ViewPictureForm(((PictureBox)sender).Image, _mCurrentPlant.Name);
+            viewPicture.Show();
+        }
     }
 }
