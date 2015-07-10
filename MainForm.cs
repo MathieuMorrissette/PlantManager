@@ -53,35 +53,32 @@ namespace PlantManager
 
             Thread.Sleep(10);
 
-            Invoke(new MethodInvoker(delegate
-            {
-                pbImage.Image = null;
-                txtDescription.Text = string.Empty;
-                lblName.Text = string.Empty;
-                udHeight.Value = 0;
-                udWidth.Value = 0;
+            pbImage.Image = null;
+            txtDescription.Text = string.Empty;
+            lblName.Text = string.Empty;
+            udHeight.Value = 0;
+            udWidth.Value = 0;
 
-                lblName.Text = _mCurrentPlant.Name;
-                txtCultivar.Text = _mCurrentPlant.Cultivar;
-                txtSpecies.Text = _mCurrentPlant.Species;
+            lblName.Text = _mCurrentPlant.Name;
+            txtCultivar.Text = _mCurrentPlant.Cultivar;
+            txtSpecies.Text = _mCurrentPlant.Species;
 
-                txtDescription.Text = _mCurrentPlant.Description;
-                cbGenus.SelectedValue = _mCurrentPlant.Genus.Id;
+            txtDescription.Text = _mCurrentPlant.Description;
+            cbGenus.SelectedValue = _mCurrentPlant.Genus.Id;
 
-                cbHardinessZones.SelectedValue = _mCurrentPlant.HardZone.Id;
-                cbSunLevels.SelectedValue = _mCurrentPlant.SunLvl.Id;
-                cbShapes.SelectedValue = _mCurrentPlant.Shape.Id;
-                cbPlantTypes.SelectedValue = _mCurrentPlant.PlantType.Id;
-                cbSoilTypes.SelectedValue = _mCurrentPlant.SoilType.Id;
+            cbHardinessZones.SelectedValue = _mCurrentPlant.HardZone.Id;
+            cbSunLevels.SelectedValue = _mCurrentPlant.SunLvl.Id;
+            cbShapes.SelectedValue = _mCurrentPlant.Shape.Id;
+            cbPlantTypes.SelectedValue = _mCurrentPlant.PlantType.Id;
+            cbSoilTypes.SelectedValue = _mCurrentPlant.SoilType.Id;
 
-                udHeight.Value = _mCurrentPlant.Height;
-                udWidth.Value = _mCurrentPlant.Width;
+            udHeight.Value = _mCurrentPlant.Height;
+            udWidth.Value = _mCurrentPlant.Width;
 
-                ShowPlantImage();
+            ShowPlantImage();
 
-                this.CheckControlsStates();
+            this.CheckControlsStates();
 
-            }));
             Invoke(new MethodInvoker(delegate { pbLoading.Visible = false; }));
         }
 
