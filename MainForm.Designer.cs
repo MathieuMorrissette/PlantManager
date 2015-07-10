@@ -35,6 +35,9 @@
             this.btSaveChanges = new System.Windows.Forms.Button();
             this.tcPlant = new System.Windows.Forms.TabControl();
             this.tpGeneral = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtSpecies = new System.Windows.Forms.TextBox();
+            this.lblName = new System.Windows.Forms.Label();
             this.btRightImage = new System.Windows.Forms.Button();
             this.btLeftImage = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -77,9 +80,6 @@
             this.tsmiManageSoilTypes = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageHardinessZones = new System.Windows.Forms.ToolStripMenuItem();
             this.pbLoading = new System.Windows.Forms.PictureBox();
-            this.lblName = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txtSpecies = new System.Windows.Forms.TextBox();
             this.tcPlant.SuspendLayout();
             this.tpGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
@@ -174,6 +174,31 @@
             this.tpGeneral.TabIndex = 0;
             this.tpGeneral.Text = "Général";
             this.tpGeneral.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(13, 75);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(49, 13);
+            this.label14.TabIndex = 17;
+            this.label14.Text = "Espèce :";
+            // 
+            // txtSpecies
+            // 
+            this.txtSpecies.Location = new System.Drawing.Point(83, 72);
+            this.txtSpecies.Name = "txtSpecies";
+            this.txtSpecies.Size = new System.Drawing.Size(222, 20);
+            this.txtSpecies.TabIndex = 18;
+            this.txtSpecies.TextChanged += new System.EventHandler(this.CheckChanges);
+            // 
+            // lblName
+            // 
+            this.lblName.Location = new System.Drawing.Point(80, 13);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(225, 13);
+            this.lblName.TabIndex = 15;
+            this.lblName.Text = "Name";
             // 
             // btRightImage
             // 
@@ -565,31 +590,6 @@
             this.pbLoading.TabIndex = 14;
             this.pbLoading.TabStop = false;
             this.pbLoading.Visible = false;
-            // 
-            // lblName
-            // 
-            this.lblName.Location = new System.Drawing.Point(80, 13);
-            this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(225, 13);
-            this.lblName.TabIndex = 15;
-            this.lblName.Text = "Name";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(13, 75);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(49, 13);
-            this.label14.TabIndex = 17;
-            this.label14.Text = "Espèce :";
-            // 
-            // txtSpecies
-            // 
-            this.txtSpecies.Location = new System.Drawing.Point(83, 72);
-            this.txtSpecies.Name = "txtSpecies";
-            this.txtSpecies.Size = new System.Drawing.Size(222, 20);
-            this.txtSpecies.TabIndex = 18;
-            this.txtSpecies.TextChanged += new System.EventHandler(this.CheckChanges);
             // 
             // MainForm
             // 
